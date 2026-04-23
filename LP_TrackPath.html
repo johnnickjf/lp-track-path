@@ -1,0 +1,1490 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TrackPath — Link Shortener & Analytics Platform for Marketers</title>
+<meta name="description" content="Shorten links, track every click in real time, and scale your affiliate marketing. TrackPath gives you campaigns, channels, deeplinks, and advanced analytics — starting free.">
+<meta name="keywords" content="link shortener, URL shortener, link tracking, click analytics, affiliate marketing, campaign management, deeplink, TrackPath">
+<meta name="robots" content="index, follow">
+<meta name="author" content="TrackPath">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TrackPath — Link Shortener & Analytics for Performance Marketers">
+<meta property="og:description" content="Real-time click tracking, campaign management, and affiliate analytics. Start free at trackpath.com.br">
+<meta property="og:image" content="https://trackpath.com.br/assets/logo/logo.png">
+<meta property="og:url" content="https://trackpath.com.br">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TrackPath — Link Shortener & Analytics">
+<meta name="twitter:description" content="Track every click. Manage campaigns. Scale your marketing ROI.">
+<meta name="twitter:image" content="https://trackpath.com.br/assets/logo/logo.png">
+<link rel="canonical" href="https://trackpath.com.br">
+<link rel="icon" type="image/png" href="https://trackpath.com.br/assets/logo/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<script>
+/* Apply theme + language before first paint */
+(function(){
+  try {
+    var t = localStorage.getItem('tp-theme');
+    if (t === 'light') document.documentElement.classList.remove('dark');
+    else if (t === 'dark') document.documentElement.classList.add('dark');
+    else document.documentElement.classList.add('dark');
+
+    var l = localStorage.getItem('tp-lang');
+    if (!l) {
+      l = (navigator.language || 'en').toLowerCase().startsWith('pt') ? 'pt' : 'en';
+    }
+    document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+    document.documentElement.setAttribute('data-lang', l);
+  } catch(e){}
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "TrackPath",
+  "url": "https://trackpath.com.br",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "Link shortener and affiliate marketing analytics platform with real-time click tracking, campaign management, and deeplinks.",
+  "offers": [
+    {"@type": "Offer", "name": "Basic", "priceCurrency": "USD"},
+    {"@type": "Offer", "name": "Advanced", "priceCurrency": "USD"},
+    {"@type": "Offer", "name": "Custom", "priceCurrency": "USD"}
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "TrackPath",
+    "url": "https://trackpath.com.br",
+    "logo": "https://trackpath.com.br/assets/logo/logo.png"
+  }
+}
+</script>
+
+<style>
+/* ---------- TOKENS ---------- */
+:root {
+  --bg: #f0f6ff;
+  --bg-surface: #ffffff;
+  --bg-elevated: #e7f1ff;
+  --text: #0f172a;
+  --text-secondary: #475569;
+  --accent: #2594f1;
+  --accent-2: #6366f1;
+  --border: #c5d9f5;
+  --glow: rgba(37, 148, 241, 0.2);
+  --glow-strong: rgba(37, 148, 241, 0.4);
+  --success: #16a34a;
+  --error: #ef4444;
+  --warning: #d97706;
+  --card-bg: rgba(255,255,255,0.7);
+  --card-border: rgba(37,148,241,0.18);
+  --grid-color: rgba(15, 23, 42, 0.06);
+}
+html.dark {
+  --bg: #0f172a;
+  --bg-surface: #1e293b;
+  --bg-elevated: #263348;
+  --text: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --accent: #60a5fa;
+  --accent-2: #818cf8;
+  --border: #334155;
+  --glow: rgba(96, 165, 250, 0.3);
+  --glow-strong: rgba(96, 165, 250, 0.5);
+  --card-bg: rgba(30,41,59,0.6);
+  --card-border: rgba(96,165,250,0.15);
+  --grid-color: rgba(226, 232, 240, 0.05);
+}
+
+/* ---------- RESET / BASE ---------- */
+*,*::before,*::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background .4s ease, color .4s ease;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+
+/* ---------- NAVBAR ---------- */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+  padding: 14px 0;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: color-mix(in oklab, var(--bg) 70%, transparent);
+  border-bottom: 1px solid transparent;
+  transition: background .3s ease, border-color .3s ease;
+}
+.nav.scrolled {
+  background: color-mix(in oklab, var(--bg) 88%, transparent);
+  border-bottom-color: var(--border);
+}
+.nav-inner { display: flex; align-items: center; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.01em; font-size: 17px; }
+.brand img { width: 28px; height: 28px; }
+.nav-links { display: none; gap: 28px; margin-left: 32px; }
+.nav-links a { color: var(--text-secondary); font-weight: 500; font-size: 14px; transition: color .2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.icon-btn {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  background: transparent;
+  transition: all .2s;
+}
+.icon-btn:hover { color: var(--text); border-color: var(--accent); }
+.lang-btn {
+  height: 36px; padding: 0 12px; border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.05em;
+  transition: all .2s;
+}
+.lang-btn:hover { color: var(--text); border-color: var(--accent); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600; font-size: 14px;
+  transition: transform .2s, box-shadow .2s, background .2s, border-color .2s;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 60%, transparent),
+              0 8px 30px var(--glow);
+}
+.btn-primary:hover { transform: scale(1.03); box-shadow: 0 0 0 1px var(--accent), 0 10px 40px var(--glow-strong); }
+.btn-ghost {
+  background: transparent; color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--text); transform: scale(1.02); }
+.btn-lg { padding: 14px 24px; font-size: 15px; border-radius: 12px; }
+.btn-xl { padding: 18px 32px; font-size: 16px; border-radius: 14px; }
+
+@media (min-width: 768px) {
+  .nav-links { display: flex; }
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  position: relative;
+  padding: 140px 0 80px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    linear-gradient(var(--grid-color) 1px, transparent 1px) 0 0 / 60px 60px,
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px) 0 0 / 60px 60px;
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 40%, transparent 80%);
+}
+.blob {
+  position: absolute; z-index: -3; border-radius: 50%;
+  filter: blur(80px); opacity: .55; will-change: transform;
+  pointer-events: none;
+}
+.blob-1 { width: 520px; height: 520px; top: -120px; left: -120px; background: radial-gradient(circle, var(--accent), transparent 60%); animation: blob-a 22s infinite ease-in-out; }
+.blob-2 { width: 440px; height: 440px; top: 10%; right: -100px; background: radial-gradient(circle, var(--accent-2), transparent 60%); animation: blob-b 26s infinite ease-in-out; }
+.blob-3 { width: 380px; height: 380px; bottom: -80px; left: 30%; background: radial-gradient(circle, var(--accent), transparent 65%); animation: blob-a 30s infinite ease-in-out reverse; opacity: .35; }
+
+@keyframes blob-a { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px, 40px) scale(1.15); } }
+@keyframes blob-b { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-60px, 30px) scale(1.1); } }
+
+.noise::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: .05;
+  mix-blend-mode: overlay;
+  z-index: -1;
+}
+
+.hero-grid {
+  display: grid; grid-template-columns: 1fr; gap: 60px; align-items: center;
+}
+@media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.1fr 1fr; gap: 40px; } }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  font-size: 13px; font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.display {
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin: 24px 0 24px;
+  text-wrap: balance;
+}
+.grad-text-1 {
+  background: linear-gradient(135deg, var(--text) 0%, var(--text) 40%, var(--accent) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.grad-text-2 {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  position: relative;
+}
+.hero-sub {
+  color: var(--text-secondary);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  max-width: 560px;
+  margin: 0 0 32px;
+}
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 32px; }
+.trust { color: var(--text-secondary); font-size: 13px; }
+.trust-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.trust-pill {
+  padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  font-size: 12px; font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* Hero visual right side */
+.hero-visual {
+  position: relative;
+  min-height: 440px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 24px;
+}
+.ghost-wrap {
+  position: relative;
+  width: clamp(180px, 22vw, 260px);
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.ghost-glow {
+  position: absolute; inset: -30%;
+  background: radial-gradient(circle, var(--glow-strong), transparent 60%);
+  filter: blur(30px);
+  z-index: -1;
+  animation: pulse 4s infinite ease-in-out;
+}
+.ghost {
+  width: 100%;
+  animation: float 4s infinite ease-in-out;
+  filter: drop-shadow(0 20px 30px var(--glow-strong));
+}
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+@keyframes pulse { 0%,100% { opacity: .7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
+
+/* Analytics card */
+.analytics-card {
+  width: 100%; max-width: 380px;
+  padding: 20px;
+  border-radius: 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 30px 80px -30px var(--glow-strong), 0 0 0 1px rgba(255,255,255,0.02) inset;
+}
+.ac-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+.ac-label { color: var(--text-secondary); font-size: 12px; font-weight: 500; }
+.ac-value { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+.ac-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px; border-radius: 999px;
+  background: rgba(22, 163, 74, 0.15); color: var(--success);
+  font-size: 11px; font-weight: 700;
+}
+.ac-spark { margin: 10px -4px 14px; }
+.ac-spark svg { width: 100%; height: 60px; overflow: visible; }
+.ac-spark path.line {
+  fill: none;
+  stroke: url(#sparkGrad);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw 3s ease-out .4s forwards;
+}
+.ac-spark path.fill {
+  fill: url(#sparkFill); opacity: 0;
+  animation: fadein 1.2s ease-out 2s forwards;
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes fadein { to { opacity: 1; } }
+
+.ac-stats { display: flex; gap: 8px; flex-wrap: wrap; }
+.ac-stat {
+  flex: 1 1 auto; min-width: 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--bg) 50%, transparent);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  display: flex; align-items: center; justify-content: space-between; gap: 6px;
+}
+.ac-stat b { font-weight: 700; }
+
+/* ---------- STATS BAR ---------- */
+.stats {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-surface);
+  padding: 48px 0;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 16px;
+}
+@media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+.stat { text-align: center; }
+.stat-value {
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  line-height: 1;
+}
+.stat-label { margin-top: 8px; color: var(--text-secondary); font-size: 13px; font-weight: 500; }
+
+/* ---------- GENERIC SECTION ---------- */
+section { position: relative; }
+.section-pad { padding: 100px 0; }
+.section-label {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: 0 0 16px;
+  text-wrap: balance;
+  max-width: 18ch;
+}
+.section-sub {
+  color: var(--text-secondary);
+  font-size: clamp(1rem, 1.3vw, 1.1rem);
+  max-width: 620px;
+  margin: 0 0 48px;
+}
+
+/* ---------- FEATURES BENTO ---------- */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+.b-card {
+  position: relative;
+  grid-column: span 6;
+  padding: 28px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  overflow: hidden;
+  transition: transform .3s, border-color .3s, box-shadow .3s;
+}
+.b-card:hover { transform: translateY(-3px); border-color: color-mix(in oklab, var(--accent) 50%, transparent); box-shadow: 0 20px 60px -30px var(--glow-strong); }
+.b-card .emoji { font-size: 28px; margin-bottom: 14px; display: inline-block; }
+.b-card h3 { margin: 0 0 8px; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+.b-card p { margin: 0; color: var(--text-secondary); font-size: 14.5px; line-height: 1.6; }
+
+@media (min-width: 768px) {
+  .b-1 { grid-column: span 3; grid-row: span 2; }
+  .b-2 { grid-column: span 3; }
+  .b-3 { grid-column: span 3; grid-row: span 2; }
+  .b-4 { grid-column: span 2; }
+  .b-5 { grid-column: span 2; }
+  .b-6 { grid-column: span 2; }
+}
+
+.b-card.b-1 { padding: 36px; }
+.b-card.b-3 { padding: 36px; }
+
+/* Decorative ghost watermark inside bento */
+.b-ghost-watermark {
+  position: absolute; right: -30px; bottom: -30px;
+  width: 160px; opacity: 0.1; pointer-events: none;
+  transform: rotate(-12deg);
+}
+html.dark .b-ghost-watermark { opacity: 0.18; }
+
+.features-mascot-chip {
+  margin-top: 28px;
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 10px 16px 10px 10px;
+  border-radius: 999px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  font-size: 13px; color: var(--text-secondary);
+}
+.features-mascot-chip img { width: 28px; height: 28px; animation: float 5s infinite ease-in-out; }
+
+/* b-card top bar accent */
+.b-accent-1::before { content:""; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity:.6; }
+.b-accent-2::before { content:""; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, var(--accent-2), transparent); opacity:.6; }
+
+/* ---------- PLATFORM ---------- */
+.platform { background: var(--bg-surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.platform-grid {
+  display: grid; grid-template-columns: repeat(1, 1fr); gap: 16px;
+}
+@media (min-width: 640px) { .platform-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .platform-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.p-card {
+  position: relative;
+  padding: 1px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, color-mix(in oklab, var(--accent) 60%, transparent), color-mix(in oklab, var(--accent-2) 60%, transparent));
+  transition: transform .3s, box-shadow .3s;
+}
+.p-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px -25px var(--glow-strong); }
+.p-card-inner {
+  height: 100%;
+  padding: 24px;
+  border-radius: 17px;
+  background: var(--bg);
+}
+html.dark .p-card {
+  background: conic-gradient(from 140deg, var(--accent), var(--accent-2), var(--accent));
+}
+.p-card .p-icon { font-size: 26px; margin-bottom: 14px; }
+.p-card h3 { margin: 0 0 6px; font-size: 17px; font-weight: 700; }
+.p-card p { margin: 0; color: var(--text-secondary); font-size: 14px; line-height: 1.55; }
+
+/* ---------- PRICING ---------- */
+.pricing-grid {
+  display: grid; grid-template-columns: 1fr; gap: 20px;
+  align-items: stretch;
+}
+@media (min-width: 900px) {
+  .pricing-grid { grid-template-columns: 1fr 1.1fr 1fr; align-items: center; }
+}
+.price-card {
+  position: relative;
+  padding: 32px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  display: flex; flex-direction: column;
+}
+.price-card.featured {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 10%, var(--bg-surface)), var(--bg-surface));
+  border-color: transparent;
+  box-shadow: 0 0 0 2px var(--accent), 0 0 40px var(--glow);
+  transform: scale(1);
+  padding: 40px 32px;
+}
+@media (min-width: 900px) {
+  .price-card.featured { transform: scale(1.03); }
+}
+.popular-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.plan-name { font-size: 14px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary); }
+.price-card.featured .plan-name { color: var(--accent); }
+.plan-features { list-style: none; padding: 0; margin: 24px 0 28px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.plan-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text); }
+.plan-features li::before {
+  content: "";
+  width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--accent) 20%, transparent);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2360a5fa' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+  background-size: 12px; background-repeat: no-repeat; background-position: center;
+}
+
+/* ---------- FAQ ---------- */
+.faq-list { max-width: 820px; margin: 0 auto; }
+.faq-item {
+  border-top: 1px solid var(--border);
+}
+.faq-list .faq-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-q {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 0;
+  font-size: 17px; font-weight: 600;
+  text-align: left;
+  color: var(--text);
+}
+.faq-q .chev {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--card-bg); border: 1px solid var(--border);
+  color: var(--accent);
+  transition: transform .3s ease;
+}
+.faq-item.open .faq-q .chev { transform: rotate(180deg); }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height .35s ease, padding .35s ease;
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.65;
+}
+.faq-item.open .faq-a { max-height: 400px; padding-bottom: 22px; }
+
+/* ---------- CTA BANNER ---------- */
+.cta-banner {
+  position: relative;
+  padding: 80px 0;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    linear-gradient(135deg, color-mix(in oklab, var(--accent) 70%, #000) 0%, color-mix(in oklab, var(--accent-2) 70%, #000) 100%);
+  color: #fff;
+  text-align: center;
+}
+.cta-banner::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; opacity: .18;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.6), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.4), transparent 40%);
+}
+.cta-banner .noise-layer {
+  position: absolute; inset: 0; z-index: -1; opacity: .08;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+.cta-ghost { width: 80px; margin: 0 auto 20px; animation: float 4s infinite ease-in-out; filter: drop-shadow(0 10px 30px rgba(255,255,255,0.3)); }
+.cta-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em; margin: 0 0 14px; }
+.cta-sub { font-size: clamp(1rem, 1.4vw, 1.15rem); opacity: .9; max-width: 600px; margin: 0 auto 32px; }
+.cta-btn {
+  background: #fff; color: #0f172a;
+  padding: 18px 32px; border-radius: 14px; font-weight: 700; font-size: 16px;
+  display: inline-flex; align-items: center; gap: 8px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  transition: transform .2s, box-shadow .2s;
+}
+.cta-btn:hover { transform: scale(1.04); box-shadow: 0 24px 60px rgba(0,0,0,0.35); }
+
+/* ---------- FOOTER ---------- */
+footer {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  padding: 60px 0 32px;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 1fr; gap: 40px;
+}
+@media (min-width: 768px) { .footer-grid { grid-template-columns: 1.6fr 1fr 1fr; } }
+.footer-tag { color: var(--text-secondary); font-size: 14px; max-width: 320px; margin-top: 14px; }
+.footer-col h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-secondary); margin: 0 0 14px; }
+.footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.footer-col a { font-size: 14px; color: var(--text); transition: color .2s; }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom {
+  margin-top: 40px; padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+  font-size: 13px; color: var(--text-secondary);
+}
+
+/* ---------- MODAL ---------- */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(2, 6, 23, 0.6);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  display: none;
+  align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.modal-overlay.open { display: flex; opacity: 1; }
+.modal-card {
+  width: 100%; max-width: 560px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 36px;
+  border-radius: 24px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 0 1px var(--card-border);
+  transform: translateY(20px);
+  transition: transform .3s cubic-bezier(.2,.9,.3,1);
+  position: relative;
+}
+.modal-overlay.open .modal-card { transform: translateY(0); }
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 36px; height: 36px; border-radius: 10px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  transition: all .2s;
+}
+.modal-close:hover { color: var(--text); border-color: var(--accent); }
+.modal-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.modal-ghost { width: 48px; height: 48px; animation: float 4s infinite ease-in-out; }
+.modal-title { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 0; }
+.modal-sub { color: var(--text-secondary); font-size: 14px; margin: 4px 0 24px; }
+.form-grid { display: grid; gap: 14px; }
+.field label { font-size: 13px; font-weight: 600; color: var(--text); display: block; margin-bottom: 6px; }
+.field label .req { color: var(--error); }
+.field input, .field select, .field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit; font-size: 14px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--glow);
+}
+.field input.error, .field select.error, .field textarea.error { border-color: var(--error); box-shadow: 0 0 0 3px rgba(239,68,68,0.2); }
+.field textarea { resize: vertical; min-height: 100px; }
+.segmented {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 4px;
+  border-radius: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+.segmented label {
+  flex: 1 1 auto;
+  min-width: 80px;
+  margin: 0;
+  text-align: center;
+  padding: 8px 10px;
+  font-size: 13px;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all .2s;
+}
+.segmented input { display: none; }
+.segmented input:checked + span { color: #fff; }
+.segmented label:has(input:checked) {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+}
+.form-submit { margin-top: 10px; width: 100%; justify-content: center; }
+.form-privacy { text-align: center; font-size: 12px; color: var(--text-secondary); margin-top: 14px; }
+
+.modal-success { display: none; text-align: center; padding: 20px 10px; }
+.modal-card.success-state .form-body { display: none; }
+.modal-card.success-state .modal-success { display: block; }
+.modal-success img { width: 90px; margin: 0 auto 16px; animation: float 4s infinite ease-in-out; }
+.modal-success h3 { font-size: 22px; font-weight: 800; margin: 0 0 12px; }
+
+/* ---------- REVEAL ---------- */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal.delay-1 { transition-delay: .08s; }
+.reveal.delay-2 { transition-delay: .16s; }
+.reveal.delay-3 { transition-delay: .24s; }
+.reveal.delay-4 { transition-delay: .32s; }
+.reveal.delay-5 { transition-delay: .40s; }
+
+/* ---------- MISC ---------- */
+.theme-light-show { display: none; }
+html:not(.dark) .theme-light-show { display: inline-flex; }
+html:not(.dark) .theme-dark-show { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#" class="brand" aria-label="TrackPath home">
+      <img src="https://trackpath.com.br/assets/logo/favicon.png" alt="">
+      <span>TrackPath</span>
+    </a>
+    <div class="nav-links" aria-label="Primary">
+      <a href="#features" data-i18n="nav_features">Features</a>
+      <a href="#platform" data-i18n="nav_platform">Platform</a>
+      <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
+      <a href="#faq" data-i18n="nav_faq">FAQ</a>
+    </div>
+    <div class="nav-right">
+      <button class="lang-btn" id="langBtn" aria-label="Toggle language">EN</button>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg class="theme-dark-show" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-light-show" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <button class="btn btn-primary" data-open-modal data-i18n="nav_cta">Get started</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero noise">
+  <div class="hero-bg"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="container hero-grid">
+    <div>
+      <span class="pill reveal" data-i18n="hero_badge">🔗 Built for performance marketers</span>
+      <h1 class="display reveal delay-1">
+        <span class="grad-text-1"><span data-i18n="hero_headline_1">Shorten. Track.</span></span><br>
+        <span class="grad-text-2" data-i18n="hero_headline_2">Scale.</span>
+      </h1>
+      <p class="hero-sub reveal delay-2" data-i18n="hero_sub">TrackPath turns every link into a data point. Real-time analytics, campaign management, and affiliate tracking — all in one platform.</p>
+      <div class="hero-ctas reveal delay-3">
+        <button class="btn btn-primary btn-lg" data-open-modal data-i18n="hero_cta_primary">Start for free</button>
+        <a href="#pricing" class="btn btn-ghost btn-lg" data-i18n="hero_cta_secondary">See plans →</a>
+      </div>
+      <div class="reveal delay-4">
+        <div class="trust" data-i18n="hero_trust">Trusted by marketers and affiliates</div>
+        <div class="trust-row">
+          <span class="trust-pill">🔒 Secure</span>
+          <span class="trust-pill">⚡ &lt;5ms</span>
+          <span class="trust-pill">📊 Real-time</span>
+          <span class="trust-pill">🆓 Free tier</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal delay-2">
+      <div class="ghost-wrap">
+        <div class="ghost-glow"></div>
+        <img class="ghost" src="https://trackpath.com.br/assets/logo/favicon.png" alt="TrackPath mascot">
+      </div>
+      <div class="analytics-card">
+        <div class="ac-head">
+          <div>
+            <div class="ac-label">Total clicks today</div>
+            <div class="ac-value mono" id="acValue">48,291</div>
+          </div>
+          <span class="ac-badge">▲ 12.4%</span>
+        </div>
+        <div class="ac-spark">
+          <svg viewBox="0 0 320 60" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="sparkGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="var(--accent)"/>
+                <stop offset="100%" stop-color="var(--accent-2)"/>
+              </linearGradient>
+              <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path class="fill" d="M0,50 L0,40 C20,38 30,30 50,32 C70,34 85,20 110,22 C135,24 150,12 175,18 C200,24 215,10 240,14 C265,18 285,6 310,10 L320,10 L320,60 L0,60 Z"/>
+            <path class="line" d="M0,40 C20,38 30,30 50,32 C70,34 85,20 110,22 C135,24 150,12 175,18 C200,24 215,10 240,14 C265,18 285,6 310,10 L320,10"/>
+          </svg>
+        </div>
+        <div class="ac-stats">
+          <div class="ac-stat">🇧🇷 Brazil <b>62%</b></div>
+          <div class="ac-stat">📱 Mobile <b>71%</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat reveal">
+        <div class="stat-value" data-counter data-target="10" data-suffix="M+">0</div>
+        <div class="stat-label" data-i18n="stat_links">Links shortened</div>
+      </div>
+      <div class="stat reveal delay-1">
+        <div class="stat-value" data-counter data-target="99.9" data-suffix="%" data-decimals="1">0</div>
+        <div class="stat-label" data-i18n="stat_uptime">Uptime SLA</div>
+      </div>
+      <div class="stat reveal delay-2">
+        <div class="stat-value"><span data-counter data-target="5" data-prefix="&lt;">0</span>ms</div>
+        <div class="stat-label" data-i18n="stat_speed">Redirect speed</div>
+      </div>
+      <div class="stat reveal delay-3">
+        <div class="stat-value" data-counter data-target="3">0</div>
+        <div class="stat-label" data-i18n="stat_plans">For every team size</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section-pad" id="features">
+  <div class="container">
+    <div class="section-label reveal" data-i18n="section_features_label">// PLATFORM FEATURES</div>
+    <h2 class="section-title reveal delay-1" data-i18n="section_features_title">Everything you need to track smarter</h2>
+
+    <div class="bento">
+      <div class="b-card b-1 b-accent-1 reveal">
+        <span class="emoji">🔒</span>
+        <h3 data-i18n="feat_1_title">Secure by default</h3>
+        <p data-i18n="feat_1_desc">Every link served over HTTPS with end-to-end encryption. Your data and your audience's are always protected.</p>
+      </div>
+      <div class="b-card b-2 b-accent-2 reveal delay-1">
+        <span class="emoji">🆓</span>
+        <h3 data-i18n="feat_2_title">Free forever tier</h3>
+        <p data-i18n="feat_2_desc">Shorten links and view basic analytics at zero cost. No credit card. No expiration.</p>
+      </div>
+      <div class="b-card b-3 b-accent-1 reveal delay-2">
+        <span class="emoji">📊</span>
+        <h3 data-i18n="feat_3_title">Real-time analytics</h3>
+        <p data-i18n="feat_3_desc">Clicks, countries, cities, and devices — live. Turn data into campaign decisions instantly.</p>
+        <img class="b-ghost-watermark" src="https://trackpath.com.br/assets/logo/favicon.png" alt="">
+      </div>
+      <div class="b-card b-4 reveal delay-1">
+        <span class="emoji">⚡</span>
+        <h3 data-i18n="feat_4_title">Millisecond redirects</h3>
+        <p data-i18n="feat_4_desc">Redirects happen in under 5ms. Zero latency means zero lost conversions.</p>
+      </div>
+      <div class="b-card b-5 reveal delay-2">
+        <span class="emoji">📱</span>
+        <h3 data-i18n="feat_5_title">Works everywhere</h3>
+        <p data-i18n="feat_5_desc">Fully responsive. Manage all your links from mobile, tablet, or desktop.</p>
+      </div>
+      <div class="b-card b-6 reveal delay-3">
+        <span class="emoji">🛡️</span>
+        <h3 data-i18n="feat_6_title">Full link control</h3>
+        <p data-i18n="feat_6_desc">Set passwords, expiration dates, and monitor every access. You decide who gets in and when.</p>
+      </div>
+    </div>
+
+    <div class="features-mascot-chip reveal">
+      <img src="https://trackpath.com.br/assets/logo/favicon.png" alt="">
+      <span data-i18n="feat_mascot_tooltip">👻 We track so you don't have to.</span>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM -->
+<section class="section-pad platform" id="platform">
+  <div class="container">
+    <div class="section-label reveal" data-i18n="section_platform_label">// BUILT FOR AFFILIATES & MARKETERS</div>
+    <h2 class="section-title reveal delay-1" data-i18n="section_platform_title">More than a shortener. A full affiliate platform.</h2>
+    <p class="section-sub reveal delay-2" data-i18n="section_platform_sub">TrackPath Premium gives performance marketers campaigns, channels, deeplinks, and conversion tracking — all connected.</p>
+
+    <div class="platform-grid">
+      <div class="p-card reveal"><div class="p-card-inner"><div class="p-icon">📣</div><h3>Campaigns</h3><p>Create, manage, and track marketing campaigns end-to-end.</p></div></div>
+      <div class="p-card reveal delay-1"><div class="p-card-inner"><div class="p-icon">📡</div><h3>Channels</h3><p>Organize your traffic sources. Know exactly where your clicks come from.</p></div></div>
+      <div class="p-card reveal delay-2"><div class="p-card-inner"><div class="p-icon">🔗</div><h3>Deeplinks</h3><p>Send users to the right place inside your app or site every time.</p></div></div>
+      <div class="p-card reveal delay-3"><div class="p-card-inner"><div class="p-icon">💰</div><h3>Conversions</h3><p>Track revenue and payout per campaign. Know your real ROI.</p></div></div>
+      <div class="p-card reveal"><div class="p-card-inner"><div class="p-icon">👥</div><h3>Multi-user</h3><p>Invite your team. Up to unlimited users depending on your plan.</p></div></div>
+      <div class="p-card reveal delay-1"><div class="p-card-inner"><div class="p-icon">🏷️</div><h3>White-label</h3><p>Your brand, your domain. Remove all TrackPath references.</p></div></div>
+      <div class="p-card reveal delay-2"><div class="p-card-inner"><div class="p-icon">📈</div><h3>Google Analytics</h3><p>Full GA4 integration. Your marketing stack, connected.</p></div></div>
+      <div class="p-card reveal delay-3"><div class="p-card-inner"><div class="p-icon">📲</div><h3>Custom QR Codes</h3><p>Generate branded QR codes for any link, instantly.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section-pad" id="pricing">
+  <div class="container">
+    <div class="section-label reveal" data-i18n="section_pricing_label">// PRICING</div>
+    <h2 class="section-title reveal delay-1" data-i18n="section_pricing_title">Choose the plan that fits your growth</h2>
+    <p class="section-sub reveal delay-2" data-i18n="section_pricing_sub">All plans include our core platform. No hidden fees. Cancel anytime.</p>
+
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="plan-name" data-i18n="plan_basic">Basic</div>
+        <ul class="plan-features">
+          <li data-i18n="pf_clicks_5k">5,000 clicks/month</li>
+          <li data-i18n="pf_stats_basic">Basic statistics</li>
+          <li data-i18n="pf_support_email">Email support</li>
+          <li data-i18n="pf_users_1">1 user</li>
+          <li data-i18n="pf_custom_links">Custom links</li>
+          <li data-i18n="pf_reports_monthly">Monthly reports</li>
+          <li data-i18n="pf_ga">Google Analytics integration</li>
+          <li data-i18n="pf_qr">Custom QR Code</li>
+          <li data-i18n="pf_whitelabel">White-label</li>
+        </ul>
+        <button class="btn btn-ghost btn-lg" data-open-modal data-i18n="pricing_cta">Get started →</button>
+      </div>
+
+      <div class="price-card featured reveal delay-1">
+        <span class="popular-badge" data-i18n="pricing_popular">Most Popular</span>
+        <div class="plan-name" data-i18n="plan_advanced">Advanced</div>
+        <ul class="plan-features">
+          <li data-i18n="pf_clicks_20k">20,000 clicks/month</li>
+          <li data-i18n="pf_stats_advanced">Advanced statistics</li>
+          <li data-i18n="pf_support_priority">Priority support (12h)</li>
+          <li data-i18n="pf_users_3">3 users</li>
+          <li data-i18n="pf_custom_links">Custom links</li>
+          <li data-i18n="pf_reports_weekly">Weekly reports</li>
+          <li data-i18n="pf_ga">Google Analytics integration</li>
+          <li data-i18n="pf_qr">Custom QR Code</li>
+          <li data-i18n="pf_whitelabel">White-label</li>
+        </ul>
+        <button class="btn btn-primary btn-lg" data-open-modal data-i18n="pricing_cta">Get started →</button>
+      </div>
+
+      <div class="price-card reveal delay-2">
+        <div class="plan-name" data-i18n="plan_custom">Custom</div>
+        <ul class="plan-features">
+          <li data-i18n="pf_clicks_unlimited">Unlimited clicks</li>
+          <li data-i18n="pf_stats_complete">Complete statistics</li>
+          <li data-i18n="pf_support_247">24/7 support</li>
+          <li data-i18n="pf_users_unlimited">Unlimited users</li>
+          <li data-i18n="pf_custom_links">Custom links</li>
+          <li data-i18n="pf_reports_daily">Daily reports</li>
+          <li data-i18n="pf_ga">Google Analytics integration</li>
+          <li data-i18n="pf_qr">Custom QR Code</li>
+          <li data-i18n="pf_whitelabel">White-label</li>
+        </ul>
+        <button class="btn btn-ghost btn-lg" data-open-modal data-i18n="pricing_cta_custom">Talk to us →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-pad" id="faq">
+  <div class="container">
+    <div class="section-label reveal" data-i18n="section_faq_label">// FAQ</div>
+    <h2 class="section-title reveal delay-1" data-i18n="section_faq_title">Frequently Asked Questions</h2>
+
+    <div class="faq-list reveal delay-2">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span data-i18n="faq_1_q">Can I switch plans later?</span>
+          <span class="chev" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><p data-i18n="faq_1_a">Yes. Upgrade or downgrade at any time. Changes take effect immediately and billing is calculated proportionally.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span data-i18n="faq_2_q">Is there a click limit?</span>
+          <span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><p data-i18n="faq_2_a">It depends on the plan. Basic: 5,000/mo, Advanced: 20,000/mo, Custom: unlimited. When the limit is reached, links keep working but metrics pause until the next billing cycle.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span data-i18n="faq_3_q">How does support work?</span>
+          <span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><p data-i18n="faq_3_a">Basic: email within 48h. Advanced: priority within 12h. Custom: 24/7 chat and email.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span data-i18n="faq_4_q">Can I cancel at any time?</span>
+          <span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><p data-i18n="faq_4_a">Yes. No lock-in, no cancellation fee. You retain access until the end of the paid period.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner noise">
+  <div class="noise-layer"></div>
+  <div class="container">
+    <img src="https://trackpath.com.br/assets/logo/favicon.png" class="cta-ghost" alt="">
+    <h2 class="cta-title reveal" data-i18n="cta_title">Ready to track smarter?</h2>
+    <p class="cta-sub reveal delay-1" data-i18n="cta_sub">Join the platform built for performance marketers. Start free, upgrade when you grow.</p>
+    <button class="cta-btn reveal delay-2" data-open-modal data-i18n="cta_btn">Get started now →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#" class="brand" style="font-size:18px;">
+          <img src="https://trackpath.com.br/assets/logo/favicon.png" alt="" style="width:32px;height:32px;">
+          <span>TrackPath</span>
+        </a>
+        <p class="footer-tag" data-i18n="footer_tagline">The link tracking platform for performance marketers.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_product">Product</h4>
+        <ul>
+          <li><a href="#features" data-i18n="footer_features">Features</a></li>
+          <li><a href="#platform" data-i18n="footer_platform">Platform</a></li>
+          <li><a href="#pricing" data-i18n="footer_pricing">Pricing</a></li>
+          <li><a href="#faq" data-i18n="footer_faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_legal">Legal</h4>
+        <ul>
+          <li><a href="#" data-i18n="footer_terms">Terms of Service</a></li>
+          <li><a href="#" data-i18n="footer_about">About us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-i18n="footer_copy">© 2025 TrackPath. All rights reserved.</span>
+      <span data-i18n="footer_made">Made with 👻 by TrackPath</span>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-card" role="document">
+    <button class="modal-close" data-close-modal aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+    </button>
+    <div class="form-body">
+      <div class="modal-head">
+        <img class="modal-ghost" src="https://trackpath.com.br/assets/logo/favicon.png" alt="">
+        <div>
+          <h2 class="modal-title" id="modalTitle" data-i18n="modal_title">Let's get you started</h2>
+        </div>
+      </div>
+      <p class="modal-sub" data-i18n="modal_sub">Tell us about yourself and we'll reach out with the right plan.</p>
+
+      <form class="form-grid" id="leadForm" novalidate>
+        <div class="field">
+          <label for="f-name"><span data-i18n="modal_name">Name</span> <span class="req">*</span></label>
+          <input id="f-name" name="name" type="text" required>
+        </div>
+        <div class="field">
+          <label for="f-email"><span data-i18n="modal_email">Email</span> <span class="req">*</span></label>
+          <input id="f-email" name="email" type="email" required>
+        </div>
+        <div class="field">
+          <label for="f-phone"><span data-i18n="modal_phone">Phone</span> <span class="req">*</span></label>
+          <input id="f-phone" name="phone" type="tel" required>
+        </div>
+        <div class="field">
+          <label for="f-size" data-i18n="modal_company_size">Company size</label>
+          <select id="f-size" name="size">
+            <option value="" data-i18n="modal_company_placeholder">Select...</option>
+            <option value="solo" data-i18n="modal_size_solo">Just me</option>
+            <option value="2-10" data-i18n="modal_size_2_10">2–10 employees</option>
+            <option value="11-30" data-i18n="modal_size_11_30">11–30 employees</option>
+            <option value="31-100" data-i18n="modal_size_31_100">31–100 employees</option>
+            <option value="100+" data-i18n="modal_size_100plus">100+ employees</option>
+          </select>
+        </div>
+        <div class="field">
+          <label data-i18n="modal_role_label">I am a...</label>
+          <div class="segmented" role="radiogroup">
+            <label><input type="radio" name="role" value="advertiser"><span data-i18n="modal_role_advertiser">Advertiser</span></label>
+            <label><input type="radio" name="role" value="affiliate"><span data-i18n="modal_role_affiliate">Affiliate</span></label>
+            <label><input type="radio" name="role" value="influencer"><span data-i18n="modal_role_influencer">Influencer</span></label>
+            <label><input type="radio" name="role" value="agency"><span data-i18n="modal_role_agency">Agency</span></label>
+            <label><input type="radio" name="role" value="other"><span data-i18n="modal_role_other">Other</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-msg" data-i18n="modal_message">What do you need?</label>
+          <textarea id="f-msg" name="message" rows="4" data-i18n-placeholder="modal_message_placeholder" placeholder="Tell us about your use case, goals, or any questions..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg form-submit" data-i18n="modal_submit">Send my request →</button>
+        <p class="form-privacy" data-i18n="modal_privacy">🔒 Your information is secure and will never be shared.</p>
+      </form>
+    </div>
+    <div class="modal-success">
+      <img src="https://trackpath.com.br/assets/logo/favicon.png" alt="">
+      <h3 data-i18n="modal_success_title">Thanks! We'll reach out soon.</h3>
+      <button class="btn btn-ghost btn-lg" data-close-modal data-i18n="modal_close">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ I18N ============ */
+const i18n = {
+  en: {
+    nav_features: "Features", nav_platform: "Platform", nav_pricing: "Pricing", nav_faq: "FAQ", nav_cta: "Get started",
+    hero_badge: "🔗 Built for performance marketers",
+    hero_headline_1: "Shorten. Track.", hero_headline_2: "Scale.",
+    hero_sub: "TrackPath turns every link into a data point. Real-time analytics, campaign management, and affiliate tracking — all in one platform.",
+    hero_cta_primary: "Start for free", hero_cta_secondary: "See plans →",
+    hero_trust: "Trusted by marketers and affiliates",
+    stat_links: "Links shortened", stat_uptime: "Uptime SLA", stat_speed: "Redirect speed", stat_plans: "For every team size",
+    section_features_label: "// PLATFORM FEATURES",
+    section_features_title: "Everything you need to track smarter",
+    feat_1_title: "Secure by default",
+    feat_1_desc: "Every link served over HTTPS with end-to-end encryption. Your data and your audience's are always protected.",
+    feat_2_title: "Free forever tier",
+    feat_2_desc: "Shorten links and view basic analytics at zero cost. No credit card. No expiration.",
+    feat_3_title: "Real-time analytics",
+    feat_3_desc: "Clicks, countries, cities, and devices — live. Turn data into campaign decisions instantly.",
+    feat_4_title: "Millisecond redirects",
+    feat_4_desc: "Redirects happen in under 5ms. Zero latency means zero lost conversions.",
+    feat_5_title: "Works everywhere",
+    feat_5_desc: "Fully responsive. Manage all your links from mobile, tablet, or desktop.",
+    feat_6_title: "Full link control",
+    feat_6_desc: "Set passwords, expiration dates, and monitor every access. You decide who gets in and when.",
+    feat_mascot_tooltip: "👻 We track so you don't have to.",
+    section_platform_label: "// BUILT FOR AFFILIATES & MARKETERS",
+    section_platform_title: "More than a shortener. A full affiliate platform.",
+    section_platform_sub: "TrackPath Premium gives performance marketers campaigns, channels, deeplinks, and conversion tracking — all connected.",
+    section_pricing_label: "// PRICING",
+    section_pricing_title: "Choose the plan that fits your growth",
+    section_pricing_sub: "All plans include our core platform. No hidden fees. Cancel anytime.",
+    pricing_popular: "Most Popular", pricing_cta: "Get started →", pricing_cta_custom: "Talk to us →",
+    plan_basic: "Basic", plan_advanced: "Advanced", plan_custom: "Custom",
+    pf_clicks_5k: "5,000 clicks/month", pf_clicks_20k: "20,000 clicks/month", pf_clicks_unlimited: "Unlimited clicks",
+    pf_stats_basic: "Basic statistics", pf_stats_advanced: "Advanced statistics", pf_stats_complete: "Complete statistics",
+    pf_support_email: "Email support", pf_support_priority: "Priority support (12h)", pf_support_247: "24/7 support",
+    pf_users_1: "1 user", pf_users_3: "3 users", pf_users_unlimited: "Unlimited users",
+    pf_custom_links: "Custom links", pf_reports_monthly: "Monthly reports", pf_reports_weekly: "Weekly reports", pf_reports_daily: "Daily reports",
+    pf_ga: "Google Analytics integration", pf_qr: "Custom QR Code", pf_whitelabel: "White-label",
+    modal_title: "Let's get you started",
+    modal_sub: "Tell us about yourself and we'll reach out with the right plan.",
+    modal_name: "Name", modal_email: "Email", modal_phone: "Phone",
+    modal_company_size: "Company size", modal_company_placeholder: "Select...",
+    modal_size_solo: "Just me", modal_size_2_10: "2–10 employees", modal_size_11_30: "11–30 employees",
+    modal_size_31_100: "31–100 employees", modal_size_100plus: "100+ employees",
+    modal_role_label: "I am a...",
+    modal_role_advertiser: "Advertiser", modal_role_affiliate: "Affiliate", modal_role_influencer: "Influencer",
+    modal_role_agency: "Agency", modal_role_other: "Other",
+    modal_message: "What do you need?",
+    modal_message_placeholder: "Tell us about your use case, goals, or any questions...",
+    modal_submit: "Send my request →",
+    modal_privacy: "🔒 Your information is secure and will never be shared.",
+    modal_success_title: "Thanks! We'll reach out soon.",
+    modal_close: "Close",
+    section_faq_label: "// FAQ", section_faq_title: "Frequently Asked Questions",
+    faq_1_q: "Can I switch plans later?",
+    faq_1_a: "Yes. Upgrade or downgrade at any time. Changes take effect immediately and billing is calculated proportionally.",
+    faq_2_q: "Is there a click limit?",
+    faq_2_a: "It depends on the plan. Basic: 5,000/mo, Advanced: 20,000/mo, Custom: unlimited. When the limit is reached, links keep working but metrics pause until the next billing cycle.",
+    faq_3_q: "How does support work?",
+    faq_3_a: "Basic: email within 48h. Advanced: priority within 12h. Custom: 24/7 chat and email.",
+    faq_4_q: "Can I cancel at any time?",
+    faq_4_a: "Yes. No lock-in, no cancellation fee. You retain access until the end of the paid period.",
+    cta_title: "Ready to track smarter?",
+    cta_sub: "Join the platform built for performance marketers. Start free, upgrade when you grow.",
+    cta_btn: "Get started now →",
+    footer_tagline: "The link tracking platform for performance marketers.",
+    footer_product: "Product", footer_legal: "Legal",
+    footer_features: "Features", footer_platform: "Platform", footer_pricing: "Pricing", footer_faq: "FAQ",
+    footer_terms: "Terms of Service", footer_about: "About us",
+    footer_copy: "© 2025 TrackPath. All rights reserved.",
+    footer_made: "Made with 👻 by TrackPath",
+  },
+  pt: {
+    nav_features: "Funcionalidades", nav_platform: "Plataforma", nav_pricing: "Planos", nav_faq: "FAQ", nav_cta: "Começar grátis",
+    hero_badge: "🔗 Feito para profissionais de marketing",
+    hero_headline_1: "Encurte. Rastreie.", hero_headline_2: "Escale.",
+    hero_sub: "TrackPath transforma cada link em um dado. Analytics em tempo real, gestão de campanhas e rastreamento de afiliados — tudo em um só lugar.",
+    hero_cta_primary: "Começar grátis", hero_cta_secondary: "Ver planos →",
+    hero_trust: "Confiado por marketeiros e afiliados",
+    stat_links: "Links encurtados", stat_uptime: "SLA de uptime", stat_speed: "Velocidade de redirect", stat_plans: "Para todo tamanho de equipe",
+    section_features_label: "// FUNCIONALIDADES",
+    section_features_title: "Tudo que você precisa para rastrear melhor",
+    feat_1_title: "Seguro por padrão",
+    feat_1_desc: "Todos os links servidos via HTTPS com criptografia ponta a ponta. Seus dados e os do seu público sempre protegidos.",
+    feat_2_title: "Plano gratuito para sempre",
+    feat_2_desc: "Encurte links e veja analytics básico de graça. Sem cartão de crédito. Sem expiração.",
+    feat_3_title: "Analytics em tempo real",
+    feat_3_desc: "Cliques, países, cidades e dispositivos — ao vivo. Transforme dados em decisões de campanha imediatamente.",
+    feat_4_title: "Redirects em milissegundos",
+    feat_4_desc: "Redirects em menos de 5ms. Zero latência significa zero conversões perdidas.",
+    feat_5_title: "Funciona em qualquer lugar",
+    feat_5_desc: "Totalmente responsivo. Gerencie seus links pelo celular, tablet ou desktop.",
+    feat_6_title: "Controle total do link",
+    feat_6_desc: "Defina senhas, datas de expiração e monitore cada acesso. Você decide quem entra e quando.",
+    feat_mascot_tooltip: "👻 A gente rastreia pra você não precisar.",
+    section_platform_label: "// PARA AFILIADOS E ANUNCIANTES",
+    section_platform_title: "Mais que um encurtador. Uma plataforma completa de afiliados.",
+    section_platform_sub: "O TrackPath Premium entrega campanhas, canais, deeplinks e rastreamento de conversões — tudo conectado para profissionais de performance.",
+    section_pricing_label: "// PLANOS",
+    section_pricing_title: "Escolha o plano certo para o seu crescimento",
+    section_pricing_sub: "Todos os planos incluem a plataforma completa. Sem taxas ocultas. Cancele quando quiser.",
+    pricing_popular: "Mais Popular", pricing_cta: "Começar →", pricing_cta_custom: "Falar com a gente →",
+    plan_basic: "Basic", plan_advanced: "Advanced", plan_custom: "Custom",
+    pf_clicks_5k: "5.000 cliques/mês", pf_clicks_20k: "20.000 cliques/mês", pf_clicks_unlimited: "Cliques ilimitados",
+    pf_stats_basic: "Estatísticas básicas", pf_stats_advanced: "Estatísticas avançadas", pf_stats_complete: "Estatísticas completas",
+    pf_support_email: "Suporte por e-mail", pf_support_priority: "Suporte prioritário (12h)", pf_support_247: "Suporte 24/7",
+    pf_users_1: "1 usuário", pf_users_3: "3 usuários", pf_users_unlimited: "Usuários ilimitados",
+    pf_custom_links: "Links personalizados", pf_reports_monthly: "Relatórios mensais",
+    pf_reports_weekly: "Relatórios semanais", pf_reports_daily: "Relatórios diários",
+    pf_ga: "Integração com Google Analytics", pf_qr: "QR Code personalizado", pf_whitelabel: "White-label",
+    modal_title: "Vamos começar",
+    modal_sub: "Conte um pouco sobre você e entraremos em contato com o plano ideal.",
+    modal_name: "Nome", modal_email: "E-mail", modal_phone: "Telefone",
+    modal_company_size: "Tamanho da empresa", modal_company_placeholder: "Selecionar...",
+    modal_size_solo: "Só eu", modal_size_2_10: "2–10 funcionários", modal_size_11_30: "11–30 funcionários",
+    modal_size_31_100: "31–100 funcionários", modal_size_100plus: "100+ funcionários",
+    modal_role_label: "Eu sou...",
+    modal_role_advertiser: "Anunciante", modal_role_affiliate: "Afiliado", modal_role_influencer: "Influencer",
+    modal_role_agency: "Agência", modal_role_other: "Outro",
+    modal_message: "O que você precisa?",
+    modal_message_placeholder: "Conte sobre seu caso de uso, objetivos ou dúvidas...",
+    modal_submit: "Enviar minha solicitação →",
+    modal_privacy: "🔒 Suas informações estão seguras e nunca serão compartilhadas.",
+    modal_success_title: "Obrigado! Entraremos em contato em breve.",
+    modal_close: "Fechar",
+    section_faq_label: "// FAQ", section_faq_title: "Perguntas Frequentes",
+    faq_1_q: "Posso mudar de plano depois?",
+    faq_1_a: "Sim. Faça upgrade ou downgrade a qualquer momento. A mudança entra em vigor imediatamente e o valor é calculado proporcionalmente.",
+    faq_2_q: "Existe limite de cliques?",
+    faq_2_a: "Depende do plano. Basic: 5.000/mês, Advanced: 20.000/mês, Custom: ilimitado. Ao atingir o limite, os links continuam funcionando mas as métricas pausam até o próximo ciclo.",
+    faq_3_q: "Como funciona o suporte?",
+    faq_3_a: "Basic: e-mail em até 48h. Advanced: suporte prioritário em até 12h. Custom: suporte 24/7 via chat e e-mail.",
+    faq_4_q: "Posso cancelar a qualquer momento?",
+    faq_4_a: "Sim. Sem fidelidade, sem multa de cancelamento. Você mantém o acesso até o fim do período já pago.",
+    cta_title: "Pronto para rastrear melhor?",
+    cta_sub: "Junte-se à plataforma feita para profissionais de performance. Comece grátis, escale quando crescer.",
+    cta_btn: "Começar agora →",
+    footer_tagline: "A plataforma de rastreamento de links para profissionais de marketing.",
+    footer_product: "Produto", footer_legal: "Legal",
+    footer_features: "Funcionalidades", footer_platform: "Plataforma", footer_pricing: "Planos", footer_faq: "FAQ",
+    footer_terms: "Termos de Serviço", footer_about: "Sobre nós",
+    footer_copy: "© 2025 TrackPath. Todos os direitos reservados.",
+    footer_made: "Feito com 👻 pelo TrackPath",
+  }
+};
+
+function applyLang(lang) {
+  const dict = i18n[lang] || i18n.en;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (dict[k] != null) el.textContent = dict[k];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const k = el.getAttribute('data-i18n-placeholder');
+    if (dict[k] != null) el.placeholder = dict[k];
+  });
+  document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+  document.documentElement.setAttribute('data-lang', lang);
+  const btn = document.getElementById('langBtn');
+  if (btn) btn.textContent = lang === 'pt' ? 'PT' : 'EN';
+  try { localStorage.setItem('tp-lang', lang); } catch(e){}
+}
+
+/* ============ THEME ============ */
+function applyTheme(theme) {
+  if (theme === 'light') document.documentElement.classList.remove('dark');
+  else document.documentElement.classList.add('dark');
+  try { localStorage.setItem('tp-theme', theme); } catch(e){}
+}
+
+document.getElementById('themeBtn').addEventListener('click', () => {
+  const isDark = document.documentElement.classList.contains('dark');
+  applyTheme(isDark ? 'light' : 'dark');
+});
+
+document.getElementById('langBtn').addEventListener('click', () => {
+  const curr = document.documentElement.getAttribute('data-lang') || 'en';
+  applyLang(curr === 'pt' ? 'en' : 'pt');
+});
+
+/* initial lang */
+(function(){
+  let l = null;
+  try { l = localStorage.getItem('tp-lang'); } catch(e){}
+  if (!l) l = (navigator.language || 'en').toLowerCase().startsWith('pt') ? 'pt' : 'en';
+  applyLang(l);
+})();
+
+/* ============ NAV SCROLL ============ */
+const navEl = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 10) navEl.classList.add('scrolled');
+  else navEl.classList.remove('scrolled');
+}, { passive: true });
+
+/* ============ REVEAL ============ */
+const revealIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      revealIO.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealIO.observe(el));
+
+/* ============ COUNTERS ============ */
+const countIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseFloat(el.dataset.target);
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
+    const dur = 1500;
+    const start = performance.now();
+    function tick(now) {
+      const t = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const v = target * eased;
+      el.textContent = prefix + v.toFixed(decimals) + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = prefix + target.toFixed(decimals) + suffix;
+    }
+    requestAnimationFrame(tick);
+    countIO.unobserve(el);
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('[data-counter]').forEach(el => countIO.observe(el));
+
+/* ============ FAQ ============ */
+document.querySelectorAll('.faq-item').forEach(item => {
+  const btn = item.querySelector('.faq-q');
+  btn.addEventListener('click', () => {
+    const open = item.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+});
+
+/* ============ MODAL ============ */
+const modal = document.getElementById('modal');
+const modalCard = modal.querySelector('.modal-card');
+let lastFocused = null;
+
+function openModal(trigger) {
+  lastFocused = trigger || document.activeElement;
+  modalCard.classList.remove('success-state');
+  document.getElementById('leadForm').reset();
+  document.querySelectorAll('#leadForm .error').forEach(e => e.classList.remove('error'));
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => { modal.querySelector('input, select, textarea, button')?.focus(); }, 100);
+}
+function closeModal() {
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  if (lastFocused && lastFocused.focus) lastFocused.focus();
+}
+document.querySelectorAll('[data-open-modal]').forEach(b => b.addEventListener('click', (e) => openModal(e.currentTarget)));
+document.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', closeModal));
+modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+/* Form validation + submit to API */
+const LEADS_ENDPOINT = 'https://api.tkph.com.br/leads';
+
+document.getElementById('leadForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const fields = ['f-name', 'f-email', 'f-phone'];
+  let ok = true;
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('error');
+    if (!el.value.trim() || !el.checkValidity()) {
+      el.classList.add('error');
+      ok = false;
+    }
+  });
+  if (!ok) return;
+
+  // Map company size to API values ("solo" -> "1")
+  const sizeRaw = document.getElementById('f-size').value;
+  const sizeMap = { 'solo': '1', '2-10': '2-10', '11-30': '11-30', '31-100': '31-100', '100+': '100+' };
+  const company_size = sizeMap[sizeRaw] || sizeRaw || undefined;
+
+  const roleEl = form.querySelector('input[name="role"]:checked');
+  const role = roleEl ? roleEl.value : undefined;
+
+  const payload = {
+    name: document.getElementById('f-name').value.trim(),
+    email: document.getElementById('f-email').value.trim(),
+    phone: document.getElementById('f-phone').value.trim() || undefined,
+    company_size,
+    role,
+    message: document.getElementById('f-msg').value.trim() || undefined,
+  };
+  // Drop undefined keys so we send a clean JSON
+  Object.keys(payload).forEach(k => payload[k] === undefined && delete payload[k]);
+
+  // Loading state
+  const originalLabel = submitBtn.textContent;
+  submitBtn.disabled = true;
+  submitBtn.style.opacity = '0.75';
+  submitBtn.style.cursor = 'wait';
+  submitBtn.textContent = (document.documentElement.getAttribute('data-lang') === 'pt')
+    ? 'Enviando...'
+    : 'Sending...';
+
+  // Remove any prior error banner
+  const prevErr = form.querySelector('.form-error');
+  if (prevErr) prevErr.remove();
+
+  try {
+    const res = await fetch(LEADS_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      let detail = '';
+      try { detail = (await res.json()).detail || ''; } catch(_) {}
+      throw new Error(detail || ('HTTP ' + res.status));
+    }
+    modalCard.classList.add('success-state');
+  } catch (err) {
+    const isPt = document.documentElement.getAttribute('data-lang') === 'pt';
+    const msg = document.createElement('p');
+    msg.className = 'form-error';
+    msg.style.cssText = 'margin:8px 0 0;color:var(--error);font-size:13px;text-align:center;';
+    msg.textContent = isPt
+      ? 'Não foi possível enviar agora. Tente novamente em instantes.'
+      : 'We couldn\'t send your request. Please try again in a moment.';
+    submitBtn.insertAdjacentElement('afterend', msg);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.style.opacity = '';
+    submitBtn.style.cursor = '';
+    submitBtn.textContent = originalLabel;
+  }
+});
+</script>
+
+</body>
+</html>
