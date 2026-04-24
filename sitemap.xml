@@ -4,18 +4,18 @@
 
   <!-- Home Page (EN) -->
   <url>
-    <loc>https://trackpath.com.br/</loc>
+    <loc>https://lp.trackpath.com.br/</loc>
     <lastmod>2025-04-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://trackpath.com.br/"/>
-    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://trackpath.com.br/?lang=pt"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://trackpath.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lp.trackpath.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://lp.trackpath.com.br/?lang=pt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lp.trackpath.com.br/"/>
   </url>
 
   <!-- Features Section -->
   <url>
-    <loc>https://trackpath.com.br/#features</loc>
+    <loc>https://lp.trackpath.com.br/#features</loc>
     <lastmod>2025-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -23,7 +23,7 @@
 
   <!-- Platform Section -->
   <url>
-    <loc>https://trackpath.com.br/#platform</loc>
+    <loc>https://lp.trackpath.com.br/#platform</loc>
     <lastmod>2025-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -31,7 +31,7 @@
 
   <!-- Pricing Section -->
   <url>
-    <loc>https://trackpath.com.br/#pricing</loc>
+    <loc>https://lp.trackpath.com.br/#pricing</loc>
     <lastmod>2025-04-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -39,7 +39,7 @@
 
   <!-- FAQ Section -->
   <url>
-    <loc>https://trackpath.com.br/#faq</loc>
+    <loc>https://lp.trackpath.com.br/#faq</loc>
     <lastmod>2025-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
