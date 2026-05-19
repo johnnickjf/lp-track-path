@@ -71,7 +71,7 @@ const i18n = {
     footer_features: "Features", footer_platform: "Platform", footer_pricing: "Pricing", footer_faq: "FAQ",
     footer_terms: "Terms of Service", footer_about: "About us",
     footer_copy: "© 2025 TrackPath. All rights reserved.",
-    footer_made: "Made with 👻 by TrackPath",
+    footer_made: "Tracked by TrackPath",
     modal_title: "Let's get you started",
     modal_sub: "Tell us about yourself and we'll reach out with the right plan.",
     modal_name: "Name", modal_email: "Email", modal_phone: "Phone",
@@ -155,7 +155,7 @@ const i18n = {
     footer_features: "Funcionalidades", footer_platform: "Plataforma", footer_pricing: "Preços", footer_faq: "FAQ",
     footer_terms: "Termos de Serviço", footer_about: "Sobre nós",
     footer_copy: "© 2025 TrackPath. Todos os direitos reservados.",
-    footer_made: "Feito com 👻 pelo TrackPath",
+    footer_made: "Rastreado pelo TrackPath",
     modal_title: "Vamos começar",
     modal_sub: "Conte-nos sobre você e entraremos em contato com o plano certo.",
     modal_name: "Nome", modal_email: "E-mail", modal_phone: "Telefone",
@@ -173,6 +173,12 @@ const i18n = {
     modal_close: "Fechar",
   }
 };
+
+/* ============ GTM / DATALAYER ============ */
+window.dataLayer = window.dataLayer || [];
+function pushEvent(event, params) {
+  window.dataLayer.push(Object.assign({ event }, params || {}));
+}
 
 function applyLang(lang) {
   const dict = i18n[lang] || i18n.en;
@@ -265,6 +271,9 @@ document.querySelectorAll('.faq-item').forEach(item => {
   btn.addEventListener('click', () => {
     const open = item.classList.toggle('open');
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) {
+      pushEvent('faq_open', { question: btn.querySelector('[data-i18n]')?.textContent?.trim() || '' });
+    }
   });
 });
 
@@ -282,6 +291,10 @@ function openModal(trigger) {
   modal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
   setTimeout(() => { modal.querySelector('input, select, textarea, button')?.focus(); }, 100);
+
+  const params = { cta_location: trigger?.dataset.ctaLocation || 'unknown' };
+  if (trigger?.dataset.plan) params.plan = trigger.dataset.plan;
+  pushEvent('modal_open', params);
 }
 function closeModal() {
   modal.classList.remove('open');
@@ -293,6 +306,26 @@ document.querySelectorAll('[data-open-modal]').forEach(b => b.addEventListener('
 document.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', closeModal));
 modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+/* ============ NAV LINK CLICKS ============ */
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    pushEvent('nav_click', { section: (link.getAttribute('href') || '').replace('#', '') });
+  });
+});
+
+/* ============ SECTION VISIBILITY ============ */
+const sectionIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    pushEvent('section_view', { section_id: e.target.id });
+    sectionIO.unobserve(e.target);
+  });
+}, { threshold: 0.3 });
+['features', 'platform', 'pricing', 'faq'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) sectionIO.observe(el);
+});
 
 /* ============ LEAD FORM ============ */
 const LEADS_ENDPOINT = 'https://api.tkph.com.br/leads';
@@ -330,6 +363,8 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
   };
   Object.keys(payload).forEach(k => payload[k] === undefined && delete payload[k]);
 
+  pushEvent('form_lead_submit', { role, company_size });
+
   const originalLabel = submitBtn.textContent;
   submitBtn.disabled = true;
   submitBtn.style.opacity = '0.75';
@@ -353,7 +388,9 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
       throw new Error(detail || ('HTTP ' + res.status));
     }
     modalCard.classList.add('success-state');
+    pushEvent('form_lead_success', { role, company_size });
   } catch (err) {
+    pushEvent('form_lead_error', { error: err.message });
     const isPt = document.documentElement.getAttribute('data-lang') === 'pt';
     const msg = document.createElement('p');
     msg.className = 'form-error';
