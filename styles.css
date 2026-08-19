@@ -402,6 +402,46 @@ html.dark .b-ghost-watermark { opacity: 0.18; }
 .b-accent-2::before { content:""; position:absolute; top:0; left:0; right:0; height:1px;
   background: linear-gradient(90deg, transparent, var(--accent-2), transparent); opacity:.6; }
 
+/* ---------- DELIVERY FORMATS ---------- */
+.format-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 768px) { .format-grid { grid-template-columns: repeat(3, 1fr); } }
+.format-grid .b-card { grid-column: span 1; grid-row: span 1; }
+
+/* ---------- NICHES ---------- */
+.niche-spotlight {
+  padding: 1px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, color-mix(in oklab, var(--accent) 60%, transparent), color-mix(in oklab, var(--accent-2) 60%, transparent));
+  margin-bottom: 24px;
+}
+html.dark .niche-spotlight {
+  background: conic-gradient(from 140deg, var(--accent), var(--accent-2), var(--accent));
+}
+.niche-spotlight-inner {
+  display: flex; gap: 20px; align-items: flex-start;
+  padding: 32px;
+  border-radius: 21px;
+  background: var(--bg);
+}
+@media (max-width: 560px) { .niche-spotlight-inner { flex-direction: column; } }
+.niche-spotlight-icon { font-size: 40px; line-height: 1; flex-shrink: 0; }
+.niche-spotlight h3 { margin: 0 0 10px; font-size: 22px; font-weight: 800; letter-spacing: -0.01em; }
+.niche-spotlight p { margin: 0; color: var(--text-secondary); font-size: 15px; line-height: 1.65; }
+.niche-also-label { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; }
+.niche-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+.niche-chip {
+  padding: 8px 14px; border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  font-size: 13px; font-weight: 500;
+  color: var(--text-secondary);
+}
+.niche-note { color: var(--text-secondary); font-size: 14px; margin: 0; }
+
 /* ---------- PLATFORM ---------- */
 .platform { background: var(--bg-surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .platform-grid {
