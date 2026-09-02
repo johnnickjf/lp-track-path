@@ -476,8 +476,11 @@ html.dark .p-card {
   display: grid; grid-template-columns: 1fr; gap: 20px;
   align-items: stretch;
 }
-@media (min-width: 900px) {
-  .pricing-grid { grid-template-columns: 1fr 1.1fr 1fr; align-items: center; }
+@media (min-width: 700px) {
+  .pricing-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1200px) {
+  .pricing-grid { grid-template-columns: 1fr 1fr 1fr 1fr; align-items: center; gap: 24px; }
 }
 .price-card {
   position: relative;
@@ -492,11 +495,13 @@ html.dark .p-card {
   background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 10%, var(--bg-surface)), var(--bg-surface));
   border-color: transparent;
   box-shadow: 0 0 0 2px var(--accent), 0 0 40px var(--glow);
-  transform: scale(1);
   padding: 40px 32px;
 }
-@media (min-width: 900px) {
-  .price-card.featured { transform: scale(1.03); }
+@media (min-width: 1200px) {
+  /* !important needed: .reveal.in has equal specificity and sets its own
+     transform (translateY), which would otherwise cancel this scale once
+     the reveal animation completes. */
+  .price-card.featured { transform: scale(1.08) !important; }
 }
 .popular-badge {
   position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
@@ -517,6 +522,12 @@ html.dark .p-card {
   background: color-mix(in oklab, var(--accent) 20%, transparent);
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2360a5fa' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
   background-size: 12px; background-repeat: no-repeat; background-position: center;
+}
+.plan-features li.not-included { color: var(--text-secondary); }
+.plan-features li.not-included::before {
+  background: color-mix(in oklab, #ef4444 18%, transparent);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ef4444' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg>");
+  background-size: 11px; background-repeat: no-repeat; background-position: center;
 }
 
 /* ---------- FAQ ---------- */

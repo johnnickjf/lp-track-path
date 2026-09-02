@@ -107,13 +107,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "@type": "Offer",
       "name": "Básico",
       "priceCurrency": "BRL",
-      "description": "5 usuários, 10 campanhas, 20 canais"
+      "description": "1 usuário, 10 campanhas, 10 canais"
     },
     {
       "@type": "Offer",
       "name": "Avançado",
       "priceCurrency": "BRL",
-      "description": "10 usuários, 30 campanhas, 50 canais, subdomínio personalizado"
+      "description": "5 usuários, 50 campanhas, 50 canais, subdomínio personalizado"
+    },
+    {
+      "@type": "Offer",
+      "name": "Escala",
+      "priceCurrency": "BRL",
+      "description": "20 usuários, 500 campanhas, 100 canais, suporte 24/7"
     },
     {
       "@type": "Offer",
@@ -160,7 +166,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "name": "Existe limite de cliques nos links rastreáveis?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Depende do plano. Básico: 5.000 cliques/mês, Avançado: 20.000 cliques/mês, Personalizado: ilimitado. Quando o limite é atingido, os links continuam funcionando mas as métricas pausam até o próximo ciclo."
+        "text": "Depende do plano — quanto maior o plano, maior o limite de cliques disponível. Fale conosco para saber os detalhes do seu plano."
       }
     },
     {
@@ -168,7 +174,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "name": "Como funciona o suporte?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Básico: e-mail em 48h. Avançado: suporte prioritário em 12h. Personalizado: chat e e-mail 24/7."
+        "text": "Básico e Avançado: suporte prioritário. Escala e Personalizado: suporte 24h/7."
       }
     },
     {
@@ -438,23 +444,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="price-card reveal">
         <div class="plan-name" data-i18n="plan_basic">Basic</div>
         <ul class="plan-features">
-          <li data-i18n="pf_users_5">5 usuários</li>
+          <li data-i18n="pf_users_1">1 usuário</li>
           <li data-i18n="pf_campaigns_10">10 campanhas</li>
-          <li data-i18n="pf_channels_20">20 canais</li>
+          <li data-i18n="pf_channels_10">10 canais</li>
           <li data-i18n="pf_reports_export">Extração de relatórios</li>
           <li data-i18n="pf_support_priority">Suporte prioritário</li>
           <li data-i18n="pf_pixels_unlimited">Pixels ilimitados por campanha</li>
           <li data-i18n="pf_link_automation">Automatização de links</li>
+          <li class="not-included" data-i18n="pf_custom_subdomain">Subdomínio personalizado</li>
+          <li class="not-included" data-i18n="pf_utm_dynamic">UTM dinâmicas</li>
+          <li class="not-included" data-i18n="pf_gtm_support">Suporte à implementação GTM</li>
+          <li class="not-included" data-i18n="pf_whatsapp_group">Grupo exclusivo no WhatsApp</li>
+          <li class="not-included" data-i18n="pf_dedicated_manager">Gerente de conta dedicado</li>
+          <li class="not-included" data-i18n="pf_auto_backup">Backup automático</li>
         </ul>
         <button class="btn btn-ghost btn-lg" data-open-modal data-cta-location="pricing" data-plan="basic" data-i18n="pricing_cta">Get started →</button>
       </div>
 
-      <div class="price-card featured reveal delay-1">
-        <span class="popular-badge" data-i18n="pricing_popular">Most Popular</span>
+      <div class="price-card reveal delay-1">
         <div class="plan-name" data-i18n="plan_advanced">Advanced</div>
         <ul class="plan-features">
-          <li data-i18n="pf_users_10">10 usuários</li>
-          <li data-i18n="pf_campaigns_30">30 campanhas</li>
+          <li data-i18n="pf_users_5">5 usuários</li>
+          <li data-i18n="pf_campaigns_50">50 campanhas</li>
           <li data-i18n="pf_channels_50">50 canais</li>
           <li data-i18n="pf_reports_export">Extração de relatórios</li>
           <li data-i18n="pf_support_priority">Suporte prioritário</li>
@@ -463,11 +474,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li data-i18n="pf_custom_subdomain">Subdomínio personalizado</li>
           <li data-i18n="pf_utm_dynamic">UTM dinâmicas</li>
           <li data-i18n="pf_gtm_support">Suporte à implementação GTM</li>
+          <li class="not-included" data-i18n="pf_whatsapp_group">Grupo exclusivo no WhatsApp</li>
+          <li class="not-included" data-i18n="pf_dedicated_manager">Gerente de conta dedicado</li>
+          <li class="not-included" data-i18n="pf_auto_backup">Backup automático</li>
         </ul>
-        <button class="btn btn-primary btn-lg" data-open-modal data-cta-location="pricing" data-plan="advanced" data-i18n="pricing_cta">Get started →</button>
+        <button class="btn btn-ghost btn-lg" data-open-modal data-cta-location="pricing" data-plan="advanced" data-i18n="pricing_cta">Get started →</button>
       </div>
 
-      <div class="price-card reveal delay-2">
+      <div class="price-card featured reveal delay-2">
+        <span class="popular-badge" data-i18n="pricing_popular">Most Popular</span>
+        <div class="plan-name" data-i18n="plan_scale">Scale</div>
+        <ul class="plan-features">
+          <li data-i18n="pf_users_20">20 usuários</li>
+          <li data-i18n="pf_campaigns_500">500 campanhas</li>
+          <li data-i18n="pf_channels_100">100 canais</li>
+          <li data-i18n="pf_reports_export">Extração de relatórios</li>
+          <li data-i18n="pf_support_247">Suporte 24h/7</li>
+          <li data-i18n="pf_pixels_unlimited">Pixels ilimitados por campanha</li>
+          <li data-i18n="pf_link_automation">Automatização de links</li>
+          <li data-i18n="pf_custom_subdomain">Subdomínio personalizado</li>
+          <li data-i18n="pf_utm_dynamic">UTM dinâmicas</li>
+          <li data-i18n="pf_gtm_support">Suporte à implementação GTM</li>
+          <li data-i18n="pf_whatsapp_group">Grupo exclusivo no WhatsApp</li>
+          <li data-i18n="pf_dedicated_manager">Gerente de conta dedicado</li>
+          <li data-i18n="pf_auto_backup">Backup automático</li>
+        </ul>
+        <button class="btn btn-primary btn-lg" data-open-modal data-cta-location="pricing" data-plan="scale" data-i18n="pricing_cta">Get started →</button>
+      </div>
+
+      <div class="price-card reveal delay-3">
         <div class="plan-name" data-i18n="plan_custom">Custom</div>
         <ul class="plan-features">
           <li data-i18n="pf_users_unlimited">Usuários ilimitados</li>
@@ -516,14 +551,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span data-i18n="faq_2_q">Is there a click limit?</span>
           <span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
         </button>
-        <div class="faq-a"><p data-i18n="faq_2_a">It depends on the plan. Basic: 5,000/mo, Advanced: 20,000/mo, Custom: unlimited. When the limit is reached, links keep working but metrics pause until the next billing cycle.</p></div>
+        <div class="faq-a"><p data-i18n="faq_2_a">It depends on the plan — higher tiers include higher click limits. Contact us for the details of your plan.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
           <span data-i18n="faq_3_q">How does support work?</span>
           <span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
         </button>
-        <div class="faq-a"><p data-i18n="faq_3_a">Basic: email within 48h. Advanced: priority within 12h. Custom: 24/7 chat and email.</p></div>
+        <div class="faq-a"><p data-i18n="faq_3_a">Basic and Advanced: priority support. Scale and Custom: 24/7 support.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
