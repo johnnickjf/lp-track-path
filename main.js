@@ -2,6 +2,8 @@
    TrackPath — main.js
    ============================================================ */
 
+let cachedPlans = null;
+
 /* ============ I18N ============ */
 const i18n = {
   en: {
@@ -11,7 +13,7 @@ const i18n = {
     hero_sub: "TrackPath turns every link into a tracked conversion. Pixel, server-to-server postback, or Smart Tag — real-time analytics and affiliate tracking, all in one platform.",
     hero_cta_primary: "Start free trial", hero_cta_secondary: "See plans →",
     hero_trust: "Trusted by marketers and affiliates",
-    trust_secure: "🔒 Secure", trust_speed: "⚡ <50ms", trust_realtime: "📊 Real-time", trust_postback: "📡 S2S Postback",
+    trust_secure: "🔒 Secure", trust_speed: "⚡ <17ms", trust_realtime: "📊 Real-time", trust_postback: "📡 S2S Postback",
     stat_links: "Links shortened", stat_uptime: "Uptime SLA", stat_speed: "Redirect speed", stat_plans: "For every team size",
     section_delivery_label: "// TRACKING FORMATS",
     section_delivery_title: "Track conversions the way your operation needs",
@@ -77,6 +79,7 @@ const i18n = {
     pf_whatsapp_group: "Exclusive WhatsApp group",
     pf_dedicated_manager: "Dedicated account manager",
     pf_auto_backup: "Automatic backup",
+    pf_affiliates_unlimited: "Unlimited affiliates",
     pricing_popular: "Most Popular",
     pricing_cta: "Get started →", pricing_cta_custom: "Talk to us →",
     section_faq_label: "// FAQ",
@@ -115,6 +118,34 @@ const i18n = {
     modal_privacy: "🔒 Your information is secure and will never be shared.",
     modal_success_title: "Thanks! We'll reach out soon.",
     modal_close: "Close",
+    hero_ac_label: "Total clicks today",
+    features_pill: "⚡ Performance, control, and scale — built for people who live off traffic.",
+    copy_label: "Copy",
+    copy_done: "✓ Copied",
+    activity_header: "LIVE ACTIVITY",
+    activity_now: "now",
+    activity_1_text: "New link created",
+    activity_2_text: "Click via Instagram",
+    activity_3_text: "Conversion recorded",
+    activity_4_text: "Click via email",
+    activity_5_text: "New click",
+    section_hiw_label: "// HOW IT WORKS",
+    section_hiw_title: "From link to revenue, in four steps",
+    section_hiw_sub: "One platform, one link, the entire journey — from the first click to the paid commission.",
+    hiw_pill: "🚀 From link to payout, in one flow.",
+    hiw_1_title: "Shorten",
+    hiw_1_desc: "Paste any URL, customize the slug, and get a branded tracking link ready to share — no developer required.",
+    hiw_2_title: "Track",
+    hiw_2_desc: "Every click, conversion, and postback lands in your dashboard in real time — pixel, S2S, or Smart Tag.",
+    hiw_3_title: "Manage",
+    hiw_3_desc: "Organize campaigns and channels, approve conversions, and set commissions — pending, approved, paid.",
+    hiw_4_title: "Scale",
+    hiw_4_desc: "Multi-user, white-label, multi-currency. Grow from one campaign to hundreds without switching platforms.",
+    hiw_status_pending: "Pending",
+    hiw_status_approved: "Approved",
+    hiw_status_paid: "Paid",
+    hiw_scale_now: "Now",
+    hiw_scale_label: "Active campaigns",
   },
   pt: {
     nav_features: "Funcionalidades", nav_platform: "Plataforma", nav_pricing: "Preços", nav_faq: "FAQ", nav_cta: "Começar",
@@ -123,7 +154,7 @@ const i18n = {
     hero_sub: "O TrackPath transforma cada link em uma conversão rastreada. Pixel, postback server-to-server ou Smart Tag — analytics em tempo real e rastreamento de afiliados, tudo em uma plataforma.",
     hero_cta_primary: "Começar teste grátis", hero_cta_secondary: "Ver planos →",
     hero_trust: "Confiado por marketers e afiliados",
-    trust_secure: "🔒 Seguro", trust_speed: "⚡ <50ms", trust_realtime: "📊 Tempo real", trust_postback: "📡 Postback S2S",
+    trust_secure: "🔒 Seguro", trust_speed: "⚡ <17ms", trust_realtime: "📊 Tempo real", trust_postback: "📡 Postback S2S",
     stat_links: "Links encurtados", stat_uptime: "SLA de Uptime", stat_speed: "Velocidade de redirecionamento", stat_plans: "Para todo tamanho de equipe",
     section_delivery_label: "// FORMATOS DE RASTREAMENTO",
     section_delivery_title: "Rastreie conversões do jeito que sua operação exige",
@@ -189,6 +220,7 @@ const i18n = {
     pf_whatsapp_group: "Grupo exclusivo no WhatsApp",
     pf_dedicated_manager: "Gerente de conta dedicado",
     pf_auto_backup: "Backup automático",
+    pf_affiliates_unlimited: "Afiliados ilimitados",
     pricing_popular: "Mais Popular",
     pricing_cta: "Começar →", pricing_cta_custom: "Fale conosco →",
     section_faq_label: "// FAQ",
@@ -227,6 +259,34 @@ const i18n = {
     modal_privacy: "🔒 Suas informações são seguras e nunca serão compartilhadas.",
     modal_success_title: "Obrigado! Entraremos em contato em breve.",
     modal_close: "Fechar",
+    hero_ac_label: "Cliques hoje",
+    features_pill: "⚡ Performance, controle e escala — feito pra quem vive de tráfego.",
+    copy_label: "Copiar",
+    copy_done: "✓ Copiado",
+    activity_header: "ATIVIDADE AO VIVO",
+    activity_now: "agora",
+    activity_1_text: "Novo link criado",
+    activity_2_text: "Clique via Instagram",
+    activity_3_text: "Conversão registrada",
+    activity_4_text: "Clique via e-mail",
+    activity_5_text: "Novo clique",
+    section_hiw_label: "// COMO FUNCIONA",
+    section_hiw_title: "Do link à receita, em quatro passos",
+    section_hiw_sub: "Uma plataforma, um link, a jornada inteira — do primeiro clique à comissão paga.",
+    hiw_pill: "🚀 Do link ao pagamento, em um fluxo só.",
+    hiw_1_title: "Encurte",
+    hiw_1_desc: "Cole qualquer URL, personalize o slug e tenha um link de rastreamento com sua marca, pronto pra compartilhar — sem precisar de dev.",
+    hiw_2_title: "Rastreie",
+    hiw_2_desc: "Cada clique, conversão e postback chega no seu painel em tempo real — pixel, S2S ou Smart Tag.",
+    hiw_3_title: "Gerencie",
+    hiw_3_desc: "Organize campanhas e canais, aprove conversões e defina comissões — pendente, aprovada, paga.",
+    hiw_4_title: "Escale",
+    hiw_4_desc: "Multi-usuário, white-label, multi-moeda. Cresça de uma campanha pra centenas sem trocar de plataforma.",
+    hiw_status_pending: "Pendente",
+    hiw_status_approved: "Aprovada",
+    hiw_status_paid: "Paga",
+    hiw_scale_now: "Agora",
+    hiw_scale_label: "Campanhas ativas",
   }
 };
 
@@ -251,6 +311,7 @@ function applyLang(lang) {
   const btn = document.getElementById('langBtn');
   if (btn) btn.textContent = lang === 'pt' ? 'PT' : 'EN';
   try { localStorage.setItem('tp-lang', lang); } catch(e){}
+  renderPlanLimits(lang);
 }
 
 /* ============ THEME ============ */
@@ -378,7 +439,7 @@ const sectionIO = new IntersectionObserver((entries) => {
     sectionIO.unobserve(e.target);
   });
 }, { threshold: 0.3 });
-['delivery', 'features', 'platform', 'niches', 'pricing', 'faq'].forEach(id => {
+['how-it-works', 'delivery', 'features', 'platform', 'niches', 'pricing', 'faq'].forEach(id => {
   const el = document.getElementById(id);
   if (el) sectionIO.observe(el);
 });
@@ -462,3 +523,225 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
     submitBtn.textContent = originalLabel;
   }
 });
+
+/* ============ PRICING (dynamic limits, from /plans) ============ */
+// The card markup (features, checkmarks/crosses, badge, buttons) stays
+// static in index.html, exactly as before. Only the three numeric limits
+// per plan (users/campaigns/channels) are filled in from the API, via the
+// <li data-limit-plan="..." data-limit-key="..."> placeholders there.
+const PLANS_ENDPOINT = 'https://api.tkph.com.br/plans';
+
+// Same numbers as the static markup — used until the API responds, and
+// kept if it fails, so the section always shows sensible values.
+const FALLBACK_PLANS = [
+  { plan: 'basic', limits: { max_users: 1, max_campaigns: 10, max_channels: 10, max_affiliates: 0 } },
+  { plan: 'advanced', limits: { max_users: 5, max_campaigns: 50, max_channels: 50, max_affiliates: 10 } },
+  { plan: 'scale', limits: { max_users: 20, max_campaigns: 500, max_channels: 100, max_affiliates: 100 } },
+  { plan: 'custom', limits: { max_users: null, max_campaigns: null, max_channels: null, max_affiliates: null } },
+];
+
+// Numeric limits vary per plan, so unlike the static text elsewhere they
+// can't map to a fixed i18n key — only the "unlimited" (null) case reuses
+// the existing dict entries; other values are composed here. Returning
+// null tells renderPlanLimits to hide the row entirely — used for
+// max_affiliates at 0, since "0 affiliates" isn't a feature, it's the
+// absence of one.
+function limitLabel(key, value, lang) {
+  const dict = i18n[lang] || i18n.en;
+  const isPt = lang === 'pt';
+  switch (key) {
+    case 'max_users':
+      if (value == null) return dict.pf_users_unlimited;
+      return isPt ? `${value} usuário${value === 1 ? '' : 's'}` : `${value} user${value === 1 ? '' : 's'}`;
+    case 'max_campaigns':
+      if (value == null) return dict.pf_campaigns_unlimited;
+      return isPt ? `${value} campanha${value === 1 ? '' : 's'}` : `${value} campaign${value === 1 ? '' : 's'}`;
+    case 'max_channels':
+      if (value == null) return dict.pf_channels_unlimited;
+      return isPt ? (value === 1 ? '1 canal' : `${value} canais`) : `${value} channel${value === 1 ? '' : 's'}`;
+    case 'max_affiliates':
+      if (value == null) return dict.pf_affiliates_unlimited;
+      if (value > 0) return isPt ? `${value} afiliado${value === 1 ? '' : 's'}` : `${value} affiliate${value === 1 ? '' : 's'}`;
+      return null;
+    default:
+      return null;
+  }
+}
+
+function renderPlanLimits(lang) {
+  if (!cachedPlans) return;
+  document.querySelectorAll('[data-limit-plan]').forEach(li => {
+    const planData = cachedPlans.find(p => p.plan === li.dataset.limitPlan);
+    if (!planData) return;
+    const value = planData.limits ? planData.limits[li.dataset.limitKey] : null;
+    const label = limitLabel(li.dataset.limitKey, value, lang);
+    li.hidden = label == null;
+    if (label != null) li.textContent = label;
+  });
+}
+
+async function loadPricingPlans() {
+  const lang = document.documentElement.getAttribute('data-lang') || 'en';
+  cachedPlans = FALLBACK_PLANS;
+  renderPlanLimits(lang);
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+  try {
+    const res = await fetch(PLANS_ENDPOINT, { signal: controller.signal });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    cachedPlans = data;
+    renderPlanLimits(lang);
+  } catch (err) {
+    // Fallback numbers are already rendered above — nothing more to do.
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+loadPricingPlans();
+
+/* ============ HERO ANALYTICS CARD (simulated live data) ============ */
+// Purely illustrative — no real data source. Ticks the headline number and
+// "walks" the sparkline to the right every 2-4s, like a live dashboard.
+const acValueEl = document.getElementById('acValue');
+const acLineEl = document.querySelector('.ac-spark path.line');
+const acFillEl = document.querySelector('.ac-spark path.fill');
+
+let acCount = acValueEl ? parseInt(acValueEl.textContent.replace(/[^\d]/g, ''), 10) || 0 : 0;
+
+const SPARK_WIDTH = 320, SPARK_HEIGHT = 60, SPARK_POINTS = 16;
+const sparkData = [];
+(function seedSpark() {
+  let y = 42;
+  for (let i = 0; i < SPARK_POINTS; i++) {
+    y += (Math.random() - 0.65) * 6;
+    y = Math.max(6, Math.min(48, y));
+    sparkData.push(y);
+  }
+})();
+
+function sparkPaths() {
+  const step = SPARK_WIDTH / (SPARK_POINTS - 1);
+  const coords = sparkData.map((y, i) => [i * step, y]);
+  const line = coords.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+  const fill = `M0,${SPARK_HEIGHT} ` + coords.map(([x, y]) => `L${x.toFixed(1)},${y.toFixed(1)}`).join(' ') + ` L${SPARK_WIDTH},${SPARK_HEIGHT} Z`;
+  return { line, fill };
+}
+
+function tickSpark() {
+  if (!acLineEl || !acFillEl) return;
+  sparkData.shift();
+  const last = sparkData[sparkData.length - 1];
+  let next = last + (Math.random() - 0.6) * 8;
+  next = Math.max(6, Math.min(48, next));
+  sparkData.push(next);
+  const { line, fill } = sparkPaths();
+  acLineEl.setAttribute('d', line);
+  acFillEl.setAttribute('d', fill);
+}
+
+function tickAcValue() {
+  if (!acValueEl) return;
+  acCount += 1 + Math.floor(Math.random() * 12);
+  const lang = document.documentElement.getAttribute('data-lang') || 'en';
+  acValueEl.textContent = acCount.toLocaleString(lang === 'pt' ? 'pt-BR' : 'en-US');
+  acValueEl.classList.add('bump');
+  setTimeout(() => acValueEl.classList.remove('bump'), 400);
+}
+
+function scheduleAcTick() {
+  const delay = 2000 + Math.random() * 2000;
+  setTimeout(() => {
+    tickAcValue();
+    tickSpark();
+    scheduleAcTick();
+  }, delay);
+}
+if (acValueEl) scheduleAcTick();
+
+/* ============ EXIT-INTENT MODAL ============ */
+// Opens the existing lead modal once per session when the cursor leaves
+// through the top of the viewport (about to close the tab / switch away).
+document.addEventListener('mouseout', (e) => {
+  if (e.clientY > 0 || e.relatedTarget) return;
+  let alreadyShown = true;
+  try { alreadyShown = !!sessionStorage.getItem('exitModalShown'); } catch (err) {}
+  if (alreadyShown || modal.classList.contains('open')) return;
+  try { sessionStorage.setItem('exitModalShown', 'true'); } catch (err) {}
+  openModal({ dataset: { ctaLocation: 'exit_intent' } });
+});
+
+/* ============ COPY LINK BUTTON ============ */
+function copyLink(btn) {
+  // data-copy-value lets a button copy a real URL instead of a mockup
+  // slug shown for illustration (e.g. the "Shorten" step's example link).
+  const codeEl = btn.previousElementSibling;
+  const code = btn.dataset.copyValue || (codeEl ? codeEl.textContent.trim() : '');
+  const lang = document.documentElement.getAttribute('data-lang') || 'en';
+  const dict = i18n[lang] || i18n.en;
+  if (navigator.clipboard) navigator.clipboard.writeText(code).catch(() => {});
+  const label = btn.querySelector('.copy-text');
+  clearTimeout(btn._copyTimeout);
+  label.textContent = dict.copy_done;
+  btn.classList.add('copied');
+  btn._copyTimeout = setTimeout(() => {
+    label.textContent = dict.copy_label;
+    btn.classList.remove('copied');
+  }, 2000);
+  pushEvent('copy_link', { code });
+}
+document.querySelectorAll('.copy-btn').forEach(btn => btn.addEventListener('click', () => copyLink(btn)));
+
+/* ============ LIVE ACTIVITY FEED (simulated) ============ */
+// Illustrative only — items are fixed templates cycled on a timer, not
+// data from any endpoint. Each item's text/time keep data-i18n so a
+// language switch updates already-rendered items for free.
+const activityTemplates = [
+  { icon: '🔗', key: 'activity_1_text', tag: 'black-friday' },
+  { icon: '📱', key: 'activity_2_text', tag: 'stories' },
+  { icon: '💰', key: 'activity_3_text', tag: 'checkout' },
+  { icon: '📧', key: 'activity_4_text', tag: 'newsletter' },
+  { icon: '🌎', key: 'activity_5_text', tag: 'BR · mobile' },
+];
+function addActivityItem() {
+  const list = document.getElementById('activityList');
+  if (!list) return;
+  const lang = document.documentElement.getAttribute('data-lang') || 'en';
+  const dict = i18n[lang] || i18n.en;
+  const item = activityTemplates[Math.floor(Math.random() * activityTemplates.length)];
+  const li = document.createElement('li');
+  li.className = 'activity-item entering';
+  li.innerHTML = `<span>${item.icon}</span> <span data-i18n="${item.key}">${dict[item.key]}</span> <code>${item.tag}</code> <time data-i18n="activity_now">${dict.activity_now}</time>`;
+  list.prepend(li);
+  requestAnimationFrame(() => li.classList.remove('entering'));
+  if (list.children.length > 4) list.lastChild.remove();
+}
+if (document.getElementById('activityList')) {
+  addActivityItem();
+  setInterval(addActivityItem, 3500);
+}
+
+/* ============ HOW IT WORKS (step dots + center line) ============ */
+// Dots reuse the same revealIO instance as the rest of the page's
+// scroll-reveal — no separate observer. `.hiw-dot` styles its own
+// idle/lit states off the shared `.in` class instead of `.reveal`'s
+// fade, since the dot must stay visible on the line before activation.
+document.querySelectorAll('.hiw-dot').forEach(el => revealIO.observe(el));
+
+const hiwSteps = document.querySelector('.hiw-steps');
+const hiwLineFill = document.getElementById('hiwLineFill');
+if (hiwSteps && hiwLineFill) {
+  const updateHiwLine = () => {
+    const rect = hiwSteps.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const total = rect.height + vh;
+    const scrolled = vh - rect.top;
+    const progress = Math.min(1, Math.max(0, scrolled / total));
+    hiwLineFill.style.height = (progress * 100) + '%';
+  };
+  window.addEventListener('scroll', updateHiwLine, { passive: true });
+  window.addEventListener('resize', updateHiwLine);
+  updateHiwLine();
+}

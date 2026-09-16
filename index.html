@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
 <head>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -57,8 +57,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 (function(){
   try {
     var t = localStorage.getItem('tp-theme');
-    if (t === 'light') document.documentElement.classList.remove('dark');
-    else document.documentElement.classList.add('dark');
+    if (t === 'dark') document.documentElement.classList.add('dark');
+    else document.documentElement.classList.remove('dark');
 
     var l = localStorage.getItem('tp-lang');
     if (!l) l = (navigator.language || 'en').toLowerCase().startsWith('pt') ? 'pt' : 'en';
@@ -242,7 +242,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="trust" data-i18n="hero_trust">Trusted by marketers and affiliates</div>
         <div class="trust-row">
           <span class="trust-pill" data-i18n="trust_secure">🔒 Secure</span>
-          <span class="trust-pill" data-i18n="trust_speed">⚡ &lt;50ms</span>
+          <span class="trust-pill" data-i18n="trust_speed">⚡ &lt;17ms</span>
           <span class="trust-pill" data-i18n="trust_realtime">📊 Real-time</span>
           <span class="trust-pill" data-i18n="trust_postback">📡 S2S Postback</span>
         </div>
@@ -257,8 +257,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="analytics-card">
         <div class="ac-head">
           <div>
-            <div class="ac-label">Total clicks today</div>
-            <div class="ac-value mono" id="acValue">18,942</div>
+            <div class="ac-label-row">
+              <span class="live-dot"></span>
+              <div class="ac-label" data-i18n="hero_ac_label">Total clicks today</div>
+            </div>
+            <div class="ac-value mono" id="acValue">706,214</div>
           </div>
           <span class="ac-badge">▲ 12.4%</span>
         </div>
@@ -292,7 +295,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="container">
     <div class="stats-grid">
       <div class="stat reveal">
-        <div class="stat-value" data-counter data-target="500" data-suffix="K+">0</div>
+        <div class="stat-value" data-counter data-target="1.4" data-decimals="1" data-suffix="M+">0</div>
         <div class="stat-label" data-i18n="stat_links">Links shortened</div>
       </div>
       <div class="stat reveal delay-1">
@@ -300,12 +303,110 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="stat-label" data-i18n="stat_uptime">Uptime SLA</div>
       </div>
       <div class="stat reveal delay-2">
-        <div class="stat-value"><span data-counter data-target="50" data-prefix="&lt;">0</span>ms</div>
+        <div class="stat-value"><span data-counter data-target="17" data-prefix="&lt;">0</span>ms</div>
         <div class="stat-label" data-i18n="stat_speed">Redirect speed</div>
       </div>
       <div class="stat reveal delay-3">
-        <div class="stat-value" data-counter data-target="3">0</div>
+        <div class="stat-value" data-counter data-target="4">0</div>
         <div class="stat-label" data-i18n="stat_plans">For every team size</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section-pad" id="how-it-works">
+  <div class="container">
+    <div class="section-label reveal" data-i18n="section_hiw_label">// HOW IT WORKS</div>
+    <h2 class="section-title reveal delay-1" data-i18n="section_hiw_title">From link to revenue, in four steps</h2>
+    <span class="pill section-pill reveal delay-2" data-i18n="hiw_pill">🚀 From link to payout, in one flow.</span>
+    <p class="section-sub reveal delay-2" data-i18n="section_hiw_sub">One platform, one link, the entire journey — from the first click to the paid commission.</p>
+
+    <div class="hiw-steps">
+      <div class="hiw-line-track" aria-hidden="true"></div>
+      <div class="hiw-line-fill" id="hiwLineFill" aria-hidden="true"></div>
+
+      <div class="hiw-step">
+        <div class="hiw-text reveal">
+          <span class="hiw-num-bg" aria-hidden="true">01</span>
+          <h3 data-i18n="hiw_1_title">Shorten</h3>
+          <p data-i18n="hiw_1_desc">Paste any URL, customize the slug, and get a branded tracking link ready to share — no developer required.</p>
+        </div>
+        <span class="hiw-dot" aria-hidden="true"></span>
+        <div class="hiw-visual reveal delay-1">
+          <div class="copy-field">
+            <code>tkph.com.br/black-friday</code>
+            <button class="copy-btn" type="button" data-copy-value="trackpath.com.br">
+              <span class="copy-text" data-i18n="copy_label">Copy</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hiw-step hiw-step-reverse">
+        <div class="hiw-text reveal">
+          <span class="hiw-num-bg" aria-hidden="true">02</span>
+          <h3 data-i18n="hiw_2_title">Track</h3>
+          <p data-i18n="hiw_2_desc">Every click, conversion, and postback lands in your dashboard in real time — pixel, S2S, or Smart Tag.</p>
+        </div>
+        <span class="hiw-dot" aria-hidden="true"></span>
+        <div class="hiw-visual reveal delay-1">
+          <div class="activity-feed">
+            <div class="activity-header">
+              <span class="live-badge"><span class="live-dot"></span><span data-i18n="activity_header">LIVE ACTIVITY</span></span>
+            </div>
+            <ul id="activityList" class="activity-list"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="hiw-step">
+        <div class="hiw-text reveal">
+          <span class="hiw-num-bg" aria-hidden="true">03</span>
+          <h3 data-i18n="hiw_3_title">Manage</h3>
+          <p data-i18n="hiw_3_desc">Organize campaigns and channels, approve conversions, and set commissions — pending, approved, paid.</p>
+        </div>
+        <span class="hiw-dot" aria-hidden="true"></span>
+        <div class="hiw-visual reveal delay-1">
+          <div class="hiw-manage">
+            <div class="hiw-manage-row">
+              <span class="hiw-manage-campaign">Black Friday · #482</span>
+              <span class="hiw-manage-status pending" data-i18n="hiw_status_pending">Pending</span>
+            </div>
+            <div class="hiw-manage-row">
+              <span class="hiw-manage-campaign">Newsletter Q4 · #117</span>
+              <span class="hiw-manage-status approved" data-i18n="hiw_status_approved">Approved</span>
+            </div>
+            <div class="hiw-manage-row">
+              <span class="hiw-manage-campaign">Stories Promo · #205</span>
+              <span class="hiw-manage-status paid" data-i18n="hiw_status_paid">Paid</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hiw-step hiw-step-reverse">
+        <div class="hiw-text reveal">
+          <span class="hiw-num-bg" aria-hidden="true">04</span>
+          <h3 data-i18n="hiw_4_title">Scale</h3>
+          <p data-i18n="hiw_4_desc">Multi-user, white-label, multi-currency. Grow from one campaign to hundreds without switching platforms.</p>
+        </div>
+        <span class="hiw-dot" aria-hidden="true"></span>
+        <div class="hiw-visual reveal delay-1">
+          <div class="hiw-scale">
+            <div class="hiw-scale-bars">
+              <div class="scale-bar" style="--h: 22%"></div>
+              <div class="scale-bar" style="--h: 38%"></div>
+              <div class="scale-bar" style="--h: 55%"></div>
+              <div class="scale-bar" style="--h: 74%"></div>
+              <div class="scale-bar" style="--h: 100%"></div>
+            </div>
+            <div class="hiw-scale-labels">
+              <span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span><span data-i18n="hiw_scale_now">Now</span>
+            </div>
+            <p class="hiw-scale-caption"><b>+312%</b> <span data-i18n="hiw_scale_label">Active campaigns</span></p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -343,6 +444,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="container">
     <div class="section-label reveal" data-i18n="section_features_label">// PLATFORM FEATURES</div>
     <h2 class="section-title reveal delay-1" data-i18n="section_features_title">Everything you need to track smarter</h2>
+    <span class="pill section-pill reveal delay-2" data-i18n="features_pill">⚡ Performance, control, and scale — built for people who live off traffic.</span>
 
     <div class="bento">
       <div class="b-card b-1 b-accent-1 reveal">
@@ -444,9 +546,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="price-card reveal">
         <div class="plan-name" data-i18n="plan_basic">Basic</div>
         <ul class="plan-features">
-          <li data-i18n="pf_users_1">1 usuário</li>
-          <li data-i18n="pf_campaigns_10">10 campanhas</li>
-          <li data-i18n="pf_channels_10">10 canais</li>
+          <li data-limit-plan="basic" data-limit-key="max_users">1 usuário</li>
+          <li data-limit-plan="basic" data-limit-key="max_campaigns">10 campanhas</li>
+          <li data-limit-plan="basic" data-limit-key="max_channels">10 canais</li>
+          <li data-limit-plan="basic" data-limit-key="max_affiliates" hidden></li>
           <li data-i18n="pf_reports_export">Extração de relatórios</li>
           <li data-i18n="pf_support_priority">Suporte prioritário</li>
           <li data-i18n="pf_pixels_unlimited">Pixels ilimitados por campanha</li>
@@ -464,9 +567,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="price-card reveal delay-1">
         <div class="plan-name" data-i18n="plan_advanced">Advanced</div>
         <ul class="plan-features">
-          <li data-i18n="pf_users_5">5 usuários</li>
-          <li data-i18n="pf_campaigns_50">50 campanhas</li>
-          <li data-i18n="pf_channels_50">50 canais</li>
+          <li data-limit-plan="advanced" data-limit-key="max_users">5 usuários</li>
+          <li data-limit-plan="advanced" data-limit-key="max_campaigns">50 campanhas</li>
+          <li data-limit-plan="advanced" data-limit-key="max_channels">50 canais</li>
+          <li data-limit-plan="advanced" data-limit-key="max_affiliates">10 afiliados</li>
           <li data-i18n="pf_reports_export">Extração de relatórios</li>
           <li data-i18n="pf_support_priority">Suporte prioritário</li>
           <li data-i18n="pf_pixels_unlimited">Pixels ilimitados por campanha</li>
@@ -485,9 +589,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="popular-badge" data-i18n="pricing_popular">Most Popular</span>
         <div class="plan-name" data-i18n="plan_scale">Scale</div>
         <ul class="plan-features">
-          <li data-i18n="pf_users_20">20 usuários</li>
-          <li data-i18n="pf_campaigns_500">500 campanhas</li>
-          <li data-i18n="pf_channels_100">100 canais</li>
+          <li data-limit-plan="scale" data-limit-key="max_users">20 usuários</li>
+          <li data-limit-plan="scale" data-limit-key="max_campaigns">500 campanhas</li>
+          <li data-limit-plan="scale" data-limit-key="max_channels">100 canais</li>
+          <li data-limit-plan="scale" data-limit-key="max_affiliates">100 afiliados</li>
           <li data-i18n="pf_reports_export">Extração de relatórios</li>
           <li data-i18n="pf_support_247">Suporte 24h/7</li>
           <li data-i18n="pf_pixels_unlimited">Pixels ilimitados por campanha</li>
@@ -505,9 +610,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="price-card reveal delay-3">
         <div class="plan-name" data-i18n="plan_custom">Custom</div>
         <ul class="plan-features">
-          <li data-i18n="pf_users_unlimited">Usuários ilimitados</li>
-          <li data-i18n="pf_campaigns_unlimited">Campanhas ilimitadas</li>
-          <li data-i18n="pf_channels_unlimited">Canais ilimitados</li>
+          <li data-limit-plan="custom" data-limit-key="max_users">Usuários ilimitados</li>
+          <li data-limit-plan="custom" data-limit-key="max_campaigns">Campanhas ilimitadas</li>
+          <li data-limit-plan="custom" data-limit-key="max_channels">Canais ilimitados</li>
+          <li data-limit-plan="custom" data-limit-key="max_affiliates">Afiliados ilimitados</li>
           <li data-i18n="pf_reports_export">Extração de relatórios</li>
           <li data-i18n="pf_support_247">Suporte 24h/7</li>
           <li data-i18n="pf_pixels_unlimited">Pixels ilimitados por campanha</li>
@@ -534,35 +640,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="faq-list reveal delay-2">
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
-          <span data-i18n="faq_5_q">How does the free trial work?</span>
+          <span><span class="faq-num">01</span><span data-i18n="faq_5_q">How does the free trial work?</span></span>
           <span class="chev" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
         </button>
         <div class="faq-a"><p data-i18n="faq_5_a">You get 7 days of full platform access, no credit card required. At the end of the period, you choose the plan that fits your volume.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
-          <span data-i18n="faq_1_q">Can I switch plans later?</span>
+          <span><span class="faq-num">02</span><span data-i18n="faq_1_q">Can I switch plans later?</span></span>
           <span class="chev" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
         </button>
         <div class="faq-a"><p data-i18n="faq_1_a">Yes. Upgrade or downgrade at any time. Changes take effect immediately and billing is calculated proportionally.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
-          <span data-i18n="faq_2_q">Is there a click limit?</span>
+          <span><span class="faq-num">03</span><span data-i18n="faq_2_q">Is there a click limit?</span></span>
           <span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
         </button>
         <div class="faq-a"><p data-i18n="faq_2_a">It depends on the plan — higher tiers include higher click limits. Contact us for the details of your plan.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
-          <span data-i18n="faq_3_q">How does support work?</span>
+          <span><span class="faq-num">04</span><span data-i18n="faq_3_q">How does support work?</span></span>
           <span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
         </button>
         <div class="faq-a"><p data-i18n="faq_3_a">Basic and Advanced: priority support. Scale and Custom: 24/7 support.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
-          <span data-i18n="faq_4_q">Can I cancel at any time?</span>
+          <span><span class="faq-num">05</span><span data-i18n="faq_4_q">Can I cancel at any time?</span></span>
           <span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
         </button>
         <div class="faq-a"><p data-i18n="faq_4_a">Yes. No lock-in, no cancellation fee. You retain access until the end of the paid period.</p></div>
